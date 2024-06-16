@@ -1,24 +1,27 @@
 import overview from "../assets/overview.png";
+import campaign from "../assets/campaign.png";
+import insights from "../assets/insights.png";
+import settings from "../assets/settings.png";
 
 export const navLinks = [
   {
     title: "Overview",
     url: "/overview",
-    icon: { overview },
+    icon: overview,
   },
   {
     title: "Campaign",
     url: "/campaign",
-    icon: { overview },
+    icon: campaign,
   },
   {
     title: "Market Intelligence",
     url: "/marketIntelligence",
-    icon: { overview },
+    icon: insights,
   },
   {
     title: "Account Settings",
     url: "/settings",
-    icon: { overview },
+    icon: settings,
   },
 ];

@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 
 const Layout = () => {
   return (
-    <div className="">
+    <div className="bg-white font-nunito">
       <Sidebar />
       <Header />
       <main className="">

@@ -4,7 +4,7 @@ import { navLinks } from "@/data";
 
 const Sidebar = () => {
   return (
-    <div className="w-[300px] border-r h-screen py-6 px-8 flex flex-col justify-between">
+    <div className="w-[300px] h-screen py-6 px-8 flex flex-col justify-between bg-lightGrayish text-[#455454]">
       <div>
         <div className="mb-10">
           <Link to="/">
@@ -27,7 +27,7 @@ const RenderLinks = ({ data }) => {
     <>
       {data.map((link, index) => (
         <div className="flex space-x-4 items-center py-3 cursor-pointer rounded-lg px-4 duration-500 sticky top-0">
-          <img src={link.icon} />
+          <img src={link.icon} className="h-6 w-6" />
           <Link key={index} to={link.url}>
             {link.title}
           </Link>
