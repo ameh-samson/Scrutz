@@ -1,16 +1,21 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./components/ui/Layout";
+import Layout from "./layout/Layout";
+import Overview from "./pages/Overview";
+import Campaign from "./pages/Campaign";
+import MarketIntelligence from "./pages/MarketIntelligence";
+import { Settings } from "lucide-react";
+import Support from "./pages/Support";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/career" element={<Careers />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/signup" element={<SignupForm />} />
+          <Route index element={<Overview />} />
+          <Route path="/campaign" element={<Campaign />} />
+          <Route path="/marketIntelligence" element={<MarketIntelligence />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/support" element={<Support />} />
         </Route>
       </Routes>
     </BrowserRouter>
