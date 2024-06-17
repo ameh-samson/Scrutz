@@ -19,9 +19,11 @@ const DesktopSidebar = () => {
         </div>
 
         <div className="mt-[70px]">
+       <Link to="/newcampaign">
           <Button className="w-full">
             <span>+ New Campaign</span>
           </Button>
+        </Link>
         </div>
         <div>
           <RenderLinks

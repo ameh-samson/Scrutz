@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import emptyImg from "../../assets/empty.png";
 
@@ -8,10 +9,11 @@ const NoActivity = () => {
 
       <div className="mt-11 text-center">
         <p>No activity yet. Create anew campaign to get started</p>
-
-        <Button className="mt-9">
-          <span>+ New Campaign</span>
-        </Button>
+        <Link to="/newcampaign">
+          <Button className="mt-9">
+            <span>+ New Campaign</span>
+          </Button>
+        </Link>
       </div>
     </div>
   );
