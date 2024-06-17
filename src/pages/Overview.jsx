@@ -4,7 +4,7 @@ import SectionTitle from "./custom/SectionTitle";
 const Overview = () => {
   return (
     <div>
-      <div>
+      <div className="flex justify-between items-center">
         <SectionTitle>Overview</SectionTitle>
         <DatePickerWithRange />
       </div>
