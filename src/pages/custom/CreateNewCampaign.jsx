@@ -175,7 +175,7 @@ const CreateNewCampaign = () => {
                           {/* toggle switch */}
                           {data.inputType === "toggle" && (
                             <FormItem className="flex items-center justify-between mt-8 md:mt-12  ">
-                              <div className="">
+                              <div>
                                 <FormLabel className="text-gray">
                                   {data.label}
                                 </FormLabel>
