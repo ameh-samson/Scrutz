@@ -134,7 +134,7 @@ export const newCampaignForm = [
   {
     label: 'Kindly select how often you want to receive daily digest',
     name: 'dailyDigest',
-    inputType: 'textarea',
+    inputType: 'select',
     placeholder: 'select',
     options: ['Yes', 'No'],
   },

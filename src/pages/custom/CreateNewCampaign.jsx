@@ -53,7 +53,7 @@ const CreateNewCampaign = () => {
     <div> 
       <SectionTitle>{newCampaignIntro[0].title}</SectionTitle>
 
-      <div>
+      <div className="max-w-2xl">
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div
