@@ -27,8 +27,11 @@ import {
 } from "@/components/ui/form";
 import { newCampaignForm } from "@/data";
 import { newCampaignFormSchema } from "@/formsValidation";
+import { useGlobalContext } from "@/context/Context";
 
 const CreateNewCampaign = () => {
+  const { newCampaign, setNewCampaign } = useGlobalContext();
+
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
     defaultValues: {
@@ -200,6 +203,7 @@ const CreateNewCampaign = () => {
               <div className="mt-10 md:mt-14 flex items-center gap-3">
                 <Link href="/">
                   <Button
+                    onClick={() => setNewCampaign(!newCampaign)}
                     size="lg"
                     variant="outline"
                     className="border-darkCyan text-darkCyan hover:bg-darkCyan hover:text-white"

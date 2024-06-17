@@ -3,15 +3,9 @@ import { createContext, useContext, useState } from "react";
 const GlobalContext = createContext({});
 
 export const ContextProvider = ({ children }) => {
-  const [isLinkActive, setIsLinkActive] = useState(false);
+  const [newCampaign, setNewCampaign] = useState(false);
 
-  // set link state
-
-  const handleIsLinkActive = () => {
-    setIsLinkActive(!isLinkActive);
-  };
-
-  const contextValue = { isLinkActive, handleIsLinkActive };
+  const contextValue = { newCampaign, setNewCampaign };
   return (
     <GlobalContext.Provider value={contextValue}>
       {children}

@@ -14,7 +14,6 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<Overview />} />
           <Route path="/campaign" element={<Campaign />} />
-          <Route path="/newcampaign" element={<CreateNewCampaign />} />
           <Route path="/marketIntelligence" element={<MarketIntelligence />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/support" element={<Support />} />
