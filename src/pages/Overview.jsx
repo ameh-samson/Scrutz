@@ -8,7 +8,7 @@ const Overview = () => {
   return (
     <div>
       <div className="flex justify-between items-center">
-        <SectionTitle>Overview</SectionTitle>
+        <SectionTitle></SectionTitle>
 
         <div className="flex items-center gap-4">
           <DatePickerWithRange />

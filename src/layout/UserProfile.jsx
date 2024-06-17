@@ -2,6 +2,14 @@ import profileIcon from "../assets/profile.png";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Separator } from "@/components/ui/separator";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -12,7 +20,7 @@ import {
 
 const UserProfile = () => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center gap-1">
       <div className="h-6 w-6 flex justify-center items-center">
         <IoMdNotificationsOutline />
       </div>
@@ -21,9 +29,14 @@ const UserProfile = () => {
         <img src={profileIcon} className="h-6 w-6" />
       </div>
 
-      <div className="hidden lg:flex flex-col items-start">
-        <span className="text-sm">Big Tech</span>
-      </div>
+      <Select className="hidden lg:flex flex-col items-start text-sm  border-none">
+        <SelectTrigger className="text-darkGray border-none">
+          <SelectValue placeholder="Big Tech"  />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="logout">Logout</SelectItem>
+        </SelectContent>
+      </Select>
     </div>
   );
 };
