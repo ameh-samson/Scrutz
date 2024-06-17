@@ -3,7 +3,7 @@ import Header from "./Header";
 
 const index = ({ children }) => {
   return (
-    <div className="hidden lg:flex h-screen overflow-hidden">
+    <div className="lg:flex h-screen overflow-hidden">
       <DesktopSidebar />
       <div className="w-full">
         <Header />
