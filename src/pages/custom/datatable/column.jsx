@@ -1,73 +1,45 @@
-"use client";
-import { MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getInitials } from "@/utils";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-// Sample data structure for the students
-const studentsData = [
-  // Add sample data here or import from a separate file
-];
+import viewIcon from '../../../assets/view.png'
+import editIcon from '../../../assets/edit.png'
+import deleteIcon from '../../../assets/delete.png'
+import { toTitleCase } from '@/lib/utils';
 
 export const columns = [
   {
-    accessorKey: "firstName",
-    header: "First Name",
+    accessorKey: "s/n",
+    header: "S/N",
+    cell: ({ row }) => row.index + 1,
   },
   {
-    accessorKey: "lastName",
-    header: "Last Name",
-  },
-  {
-    accessorKey: "userName",
-    header: "username",
+    accessorKey: "campaignName",
+    header: "Campaign Name",
   },
 
   {
-    accessorKey: "parent",
-    header: "Parent Email",
-  },
-
-  {
-    accessorKey: "course",
-    header: "Course ID",
+    accessorKey: "startDate",
+    header: "Start Date",
   },
   {
-    accessorKey: "instructor",
-    header: "Instructor Email",
-  },
-  {
-    accessorKey: "stage",
-    header: "Stage",
-  },
-  {
-    accessorKey: "level",
-    header: "Level",
-  },
-
-  {
-    id: "actions",
+    accessorKey: "campaignStatus",
+    header: "Status",
     cell: ({ row }) => {
-      const students = row.original;
+      const status = row.original.campaignStatus;
+      return <span className={`font-bold ${status === "active" ? "text-green-500" : status === "inactive" ? "text-red" : ""}`}>{status.toUpperCase()}</span>;
+    },
+  },
 
+  {  
+    id: "actions",
+    header: "Actions",
+    cell: ({ row }) => {
+      const payment = row.original
+ 
       return (
-        <div className="flex gap-3">
-          <Link href={`/students/${row.original.lastName}`}>
-            <Button size="sm">View</Button>
-          </Link>
-        </div>
-      );
+       <div className='flex items-center gap-6'>
+        <button><img src={viewIcon} alt="view" className='w-5' /></button>
+        <button><img src={editIcon} alt="view" className='w-4' /></button>
+        <button><img src={deleteIcon} alt="view" className='w-5' /></button>
+       </div>
+      )
     },
   },
 ];

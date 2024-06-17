@@ -3,6 +3,8 @@ import { IoIosSearch } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { campaignsList } from "@/data";
+import { DataTable } from "./custom/datatable/datatable";
+import { columns } from "./custom/datatable/column";
 
 const Campaign = () => {
   return (
@@ -44,10 +46,12 @@ const Campaign = () => {
           </div>
         </div>
 
-        <div>
+      
+      </div>
+
+      <div className="mt-8">
           <DataTable columns={columns} data={campaignsList} />
         </div>
-      </div>
     </div>
   );
 };
