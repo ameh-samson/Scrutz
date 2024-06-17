@@ -1,5 +1,11 @@
+import SectionTitle from "./custom/SectionTitle";
+
 const Overview = () => {
-  return <div>Overview</div>;
+  return (
+    <div>
+      <SectionTitle>Overview</SectionTitle>
+    </div>
+  );
 };
 
 export default Overview;
