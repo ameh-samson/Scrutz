@@ -1,13 +1,12 @@
-import { newCampaignIntro } from "@/data"
-import SectionTitle from "./SectionTitle"
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
-
+import { newCampaignIntro } from "@/data";
+import SectionTitle from "./SectionTitle";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 
 import {
   Select,
@@ -15,9 +14,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-
-
+} from "@/components/ui/select";
 
 import {
   Form,
@@ -27,40 +24,39 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { newCampaignForm } from '@/data'
-import { newCampaignFormSchema } from "@/formsValidation"
+} from "@/components/ui/form";
+import { newCampaignForm } from "@/data";
+import { newCampaignFormSchema } from "@/formsValidation";
 
 const CreateNewCampaign = () => {
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
     defaultValues: {
-      campaignName: '',
-      campaignDescription: '',
-      startDate: '',
-      endDate: '',
-      linkedKeywords: '',
-      dailyDigest: '',
+      campaignName: "",
+      campaignDescription: "",
+      startDate: "",
+      endDate: "",
+      linkedKeywords: "",
+      dailyDigest: "",
     },
-  })
+  });
 
   // for testing form submission
   function onSubmit(data) {
-    console.log(data)
-    form.reset()
+    console.log(data);
+    form.reset();
   }
 
-
   return (
-    <div> 
+    <div>
       <div>
-
-      <SectionTitle>{newCampaignIntro[0].title}</SectionTitle>
+        <SectionTitle>{newCampaignIntro[0].title}</SectionTitle>
       </div>
 
-      <div className="max-w-2xl"><Form {...form}>
+      <div className="max-w-2xl">
+        <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div>
+            <div>
               {newCampaignForm.map((data, index) => (
                 <div key={index}>
                   <FormField
@@ -69,10 +65,12 @@ const CreateNewCampaign = () => {
                     render={({ field }) => (
                       <>
                         {/* input with text type */}
-                        {data.inputType === 'text' && (
+                        {data.inputType === "text" && (
                           <FormItem>
                             <div className="mt-8 md:mt-12 flex flex-col">
-                              <FormLabel className="text-gray">{data.label}</FormLabel>
+                              <FormLabel className="text-gray">
+                                {data.label}
+                              </FormLabel>
                               <FormControl>
                                 <Input
                                   placeholder={data.placeholder}
@@ -86,10 +84,12 @@ const CreateNewCampaign = () => {
                         )}
 
                         {/* Input field with type radio */}
-                        {data.inputType === 'radio' && (
+                        {data.inputType === "radio" && (
                           <FormItem>
                             <div className="mt-8 md:mt-12">
-                              <FormLabel className="text-gray">{data.label}</FormLabel>
+                              <FormLabel className="text-gray">
+                                {data.label}
+                              </FormLabel>
                               <FormControl>
                                 <RadioGroup onValueChange={field.onChange}>
                                   {data.options?.map((option, inde) => (
@@ -101,7 +101,9 @@ const CreateNewCampaign = () => {
                                         value={option}
                                         id={`r${option}`}
                                       />
-                                      <Label htmlFor={`r${option}`}>{option}</Label>
+                                      <Label htmlFor={`r${option}`}>
+                                        {option}
+                                      </Label>
                                     </div>
                                   ))}
                                 </RadioGroup>
@@ -112,17 +114,22 @@ const CreateNewCampaign = () => {
                         )}
 
                         {/* Input field with type select */}
-                        {data.inputType === 'select' && (
+                        {data.inputType === "select" && (
                           <FormItem>
                             <div className="mt-8 md:mt-12">
-                              <FormLabel className="text-gray">{data.label}</FormLabel>
+                              <FormLabel className="text-gray">
+                                {data.label}
+                              </FormLabel>
                               <Select
                                 onValueChange={field.onChange}
                                 defaultValue={field.value}
                               >
                                 <FormControl>
                                   <SelectTrigger>
-                                    <SelectValue placeholder={data.placeholder} className="text-gray2"/>
+                                    <SelectValue
+                                      placeholder={data.placeholder}
+                                      className="text-gray2"
+                                    />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
@@ -136,7 +143,7 @@ const CreateNewCampaign = () => {
                                           {option}
                                         </SelectItem>
                                       </div>
-                                    )
+                                    );
                                   })}
                                 </SelectContent>
                               </Select>
@@ -146,10 +153,12 @@ const CreateNewCampaign = () => {
                         )}
 
                         {/* input with textarea type */}
-                        {data.inputType === 'textarea' && (
+                        {data.inputType === "textarea" && (
                           <FormItem>
                             <div className="mt-8 md:mt-12 flex flex-col">
-                              <FormLabel className="text-gray">{data.label}</FormLabel>
+                              <FormLabel className="text-gray">
+                                {data.label}
+                              </FormLabel>
                               <FormControl>
                                 <Textarea
                                   placeholder={data.placeholder}
@@ -162,26 +171,23 @@ const CreateNewCampaign = () => {
                           </FormItem>
                         )}
 
-
                         {/* toggle switch */}
-                        {data.inputType === 'toggle' && (
+                        {data.inputType === "toggle" && (
                           <FormItem className="flex items-center justify-between mt-8 md:mt-12  ">
-                          <div className="">
-                            <FormLabel className="text-gray">
-                              {data.label}
-                            </FormLabel>
-                          </div>
-                          <FormControl>
-                            <div className="m-0">
-
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              
-                              />
+                            <div className="">
+                              <FormLabel className="text-gray">
+                                {data.label}
+                              </FormLabel>
+                            </div>
+                            <FormControl>
+                              <div className="m-0">
+                                <Switch
+                                  checked={field.value}
+                                  onCheckedChange={field.onChange}
+                                />
                               </div>
-                          </FormControl>
-                        </FormItem>
+                            </FormControl>
+                          </FormItem>
                         )}
                       </>
                     )}
@@ -202,8 +208,7 @@ const CreateNewCampaign = () => {
         </Form>
       </div>
     </div>
-   
-  )
-}
+  );
+};
 
-export default CreateNewCampaign
+export default CreateNewCampaign;
