@@ -6,7 +6,7 @@ import settings from "../assets/settings.png";
 export const navLinks = [
   {
     title: "Overview",
-    url: "/overview",
+    url: "/",
     icon: overview,
   },
   {

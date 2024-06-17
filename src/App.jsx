@@ -3,7 +3,7 @@ import Layout from "./layout/Layout";
 import Overview from "./pages/Overview";
 import Campaign from "./pages/Campaign";
 import MarketIntelligence from "./pages/MarketIntelligence";
-import { Settings } from "lucide-react";
+import Settings from "./pages/Settings";
 import Support from "./pages/Support";
 
 function App() {
