@@ -41,7 +41,12 @@ const DesktopSidebar = () => {
           </div>
 
           <Link to="/support">
-            <Button variant="outline">Get Help</Button>
+            <Button
+              variant="outline"
+              className="border-darkCyan text-darkCyan hover:bg-darkCyan hover:text-white"
+            >
+              Get Help
+            </Button>
           </Link>
         </div>
       </div>
