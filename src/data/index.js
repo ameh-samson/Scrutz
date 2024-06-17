@@ -25,3 +25,39 @@ export const navLinks = [
     icon: settings,
   },
 ];
+
+export const campaignsList = [
+  {
+    id: 0,
+    campaignName: "Info Tech",
+    campaignDescription: "string",
+    startDate: "2024-06-17",
+    endDate: "2024-06-18",
+    digestCampaign: "string",
+    linkedKeywords: ["fidelity", "Unity"],
+    dailyDigest: "Yes",
+    campaignStatus: "Active",
+  },
+  {
+    id: 0,
+    campaignName: "Info Tech",
+    campaignDescription: "string",
+    startDate: "2024-06-17",
+    endDate: "2024-06-18",
+    digestCampaign: "string",
+    linkedKeywords: ["fidelity", "Unity"],
+    dailyDigest: "Yes",
+    campaignStatus: "Active",
+  },
+  {
+    id: 0,
+    campaignName: "Info Tech",
+    campaignDescription: "string",
+    startDate: "2024-06-17",
+    endDate: "2024-06-18",
+    digestCampaign: "string",
+    linkedKeywords: ["fidelity", "Unity"],
+    dailyDigest: "Yes",
+    campaignStatus: "Active",
+  },
+];
