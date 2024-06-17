@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import companyLogo from "../../assets/scrutz-logo.png";
 import helpImg from "../../assets/help.png";
 import { navLinks } from "@/data";
 import { Button } from "@/components/ui/button";
+import { useGlobalContext } from "@/context/Context";
 
 const DesktopSidebar = () => {
+  const [activeLink, setActiveLink] = useState(location.pathname);
+
   return (
     <div className="w-[400px] h-screen py-6 px-8 flex flex-col justify-between bg-lightGrayish text-[#455454] overflow-y-scroll">
       <div>
@@ -15,10 +19,16 @@ const DesktopSidebar = () => {
         </div>
 
         <div className="mt-[70px]">
-          <Button className="w-full">+ New Campaign</Button>
+          <Button className="w-full">
+            <span>+ New Campaign</span>
+          </Button>
         </div>
         <div>
-          <RenderLinks data={navLinks} />
+          <RenderLinks
+            data={navLinks}
+            activeLink={activeLink}
+            setActiveLink={setActiveLink}
+          />
         </div>
 
         <div className="bg-white rounded  mt-6 py-8 px-8 flex flex-col justify-center items-center text-center">
@@ -39,15 +49,27 @@ const DesktopSidebar = () => {
 
 export default DesktopSidebar;
 
-const RenderLinks = ({ data }) => {
+const RenderLinks = ({ data, activeLink, setActiveLink }) => {
+  const greenFilterStyle = {
+    filter: "brightness(0.75) sepia(1) hue-rotate(170deg) saturate(5)",
+  };
+
   return (
     <>
       {data.map((link, index) => (
         <div
           key={index}
-          className="flex space-x-4 items-center mt-6 px-10 py-2 cursor-pointer rounded-lg duration-500 sticky top-0"
+          className={`flex space-x-4 items-center mt-6 px-10 py-2 cursor-pointer rounded-lg duration-500 hover:bg-white ${
+            activeLink === link.url ? "bg-white text-darkCyan" : ""
+          }`}
+          onClick={() => setActiveLink(link.url)}
         >
-          <img src={link.icon} className="h-6 w-6" />
+          <img
+            src={link.icon}
+            className="h-6 w-6"
+            style={activeLink === link.url ? greenFilterStyle : {}}
+          />
+
           <Link to={link.url} className="text-sm">
             {link.title}
           </Link>

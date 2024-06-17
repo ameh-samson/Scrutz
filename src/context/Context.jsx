@@ -3,7 +3,15 @@ import { createContext, useContext, useState } from "react";
 const GlobalContext = createContext({});
 
 export const ContextProvider = ({ children }) => {
-  const contextValue = {};
+  const [isLinkActive, setIsLinkActive] = useState(false);
+
+  // set link state
+
+  const handleIsLinkActive = () => {
+    setIsLinkActive(!isLinkActive);
+  };
+
+  const contextValue = { isLinkActive, handleIsLinkActive };
   return (
     <GlobalContext.Provider value={contextValue}>
       {children}

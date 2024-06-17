@@ -1,7 +1,7 @@
 import overview from "../assets/overview.png";
-import campaign from "../assets/campaign.png";
 import insights from "../assets/insights.png";
 import settings from "../assets/settings.png";
+import campaign from "../assets/campaign.svg";
 
 export const navLinks = [
   {
