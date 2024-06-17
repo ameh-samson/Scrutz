@@ -33,9 +33,9 @@ export const campaignsList = [
     campaignDescription: "string",
     startDate: "2024-06-17",
     endDate: "2024-06-18",
-    digestCampaign: "string",
+    digestCampaign: "Yes",
     linkedKeywords: ["fidelity", "Unity"],
-    dailyDigest: "Yes",
+    dailyDigest: "Not too often",
     campaignStatus: "active",
   },
   {
@@ -44,9 +44,9 @@ export const campaignsList = [
     campaignDescription: "string",
     startDate: "2024-06-17",
     endDate: "2024-06-18",
-    digestCampaign: "string",
+    digestCampaign: "Yes",
     linkedKeywords: ["fidelity", "Unity"],
-    dailyDigest: "Yes",
+    dailyDigest: "Very often",
     campaignStatus: "active",
   },
   {
@@ -55,9 +55,9 @@ export const campaignsList = [
     campaignDescription: "string",
     startDate: "2024-06-17",
     endDate: "2024-06-18",
-    digestCampaign: "string",
+    digestCampaign: "No",
     linkedKeywords: ["fidelity", "Unity"],
-    dailyDigest: "Yes",
+    dailyDigest: "Not at all",
     campaignStatus: "inactive",
   },
   {
@@ -66,9 +66,9 @@ export const campaignsList = [
     campaignDescription: "string",
     startDate: "2024-06-17",
     endDate: "2024-06-18",
-    digestCampaign: "string",
+    digestCampaign: "Yes",
     linkedKeywords: ["fidelity", "Unity"],
-    dailyDigest: "Yes",
+    dailyDigest: "Not too often",
     campaignStatus: "inactive",
   },
   {
@@ -77,9 +77,9 @@ export const campaignsList = [
     campaignDescription: "string",
     startDate: "2024-06-17",
     endDate: "2024-06-18",
-    digestCampaign: "string",
+    digestCampaign: "No",
     linkedKeywords: ["fidelity", "Unity"],
-    dailyDigest: "Yes",
+    dailyDigest: "Very often",
     campaignStatus: "inactive",
   },
   {
@@ -88,9 +88,9 @@ export const campaignsList = [
     campaignDescription: "string",
     startDate: "2024-06-17",
     endDate: "2024-06-18",
-    digestCampaign: "string",
+    digestCampaign: "Yes",
     linkedKeywords: ["fidelity", "Unity"],
-    dailyDigest: "Yes",
+    dailyDigest: "Very often",
     campaignStatus: "inactive",
   },
 ];
@@ -122,8 +122,15 @@ export const newCampaignForm = [
   {
     label: 'End Date',
     name: 'endDate',
+    inputType: 'text',
+    placeholder: 'dd/mm/yyy',
+  },
+  {
+    label: 'Want to receive daily digest about the campaign?',
+    name: 'digestCampaign',
     inputType: 'toggle',
     placeholder: '',
+    options: ['Yes', 'No']
   },
   {
     label: 'Linked Keywords',
@@ -136,6 +143,6 @@ export const newCampaignForm = [
     name: 'dailyDigest',
     inputType: 'select',
     placeholder: 'select',
-    options: ['Yes', 'No'],
+    options: ['Very oftern', 'Not too often', 'Not at all'],
   },
 ]

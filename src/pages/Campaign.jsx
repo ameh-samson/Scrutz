@@ -30,7 +30,7 @@ const Campaign = () => {
           <div className="relative w-60">
             <Input
               type="text"
-              placeholder="  Search..."
+              placeholder="Search..."
               className="w-full pl-10"
             />
             <IoIosSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
