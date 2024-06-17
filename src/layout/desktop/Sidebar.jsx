@@ -40,7 +40,9 @@ const DesktopSidebar = () => {
             </p>
           </div>
 
-          <Button variant="outline">Get Help</Button>
+          <Link to="/support">
+            <Button variant="outline">Get Help</Button>
+          </Link>
         </div>
       </div>
     </div>
