@@ -3,12 +3,16 @@ import emptyImg from "../../assets/empty.png";
 
 const NoActivity = () => {
   return (
-    <div>
-      <img src={emptyImg} alt="empty" className="" />
+    <div className="flex flex-col items-center justify-center">
+      <img src={emptyImg} alt="empty" className="w-[462px]" />
 
-      <Button>
-        <span>+ New Campaign</span>
-      </Button>
+      <div className="mt-11 text-center">
+        <p>No activity yet. Create anew campaign to get started</p>
+
+        <Button className="mt-9">
+          <span>+ New Campaign</span>
+        </Button>
+      </div>
     </div>
   );
 };
