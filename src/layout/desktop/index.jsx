@@ -8,7 +8,7 @@ const index = ({ children }) => {
       <div className="w-full">
         <Header />
 
-        <div className="h-screen pb-32 pt-10">
+        <div className="h-screen pb-32 pt-10 overflow-y-scroll">
           <div className="container">{children}</div>
         </div>
       </div>
