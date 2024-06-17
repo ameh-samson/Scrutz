@@ -7,14 +7,14 @@ const index = ({ children }) => {
   const { newCampaign } = useGlobalContext();
 
   return (
-    <div className="hidden lg:flex h-screen overflow-hidden">
+    <div className="lg:flex h-screen overflow-hidden">
       <DesktopSidebar />
       <div className="w-full">
         <Header />
 
         <div className="h-screen overflow-y-scroll pb-32 pt-10">
           <div className="container">
-            {newCampaign ? <CreateNewCampaign /> : <div>{children}</div>}
+            {newCampaign ? <CreateNewCampaign /> : <>{children}</>}
           </div>
         </div>
       </div>

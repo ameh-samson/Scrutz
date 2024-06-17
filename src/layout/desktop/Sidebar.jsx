@@ -21,19 +21,18 @@ const DesktopSidebar = () => {
         </div>
 
         <div className="mt-[70px]">
-          <Button
-            onClick={() => setNewCampaign(!newCampaign)}
-            className="w-full"
-          >
+          <Button onClick={() => setNewCampaign(true)} className="w-full">
             <span>+ New Campaign</span>
           </Button>
         </div>
         <div>
-          <RenderLinks
-            data={navLinks}
-            activeLink={activeLink}
-            setActiveLink={setActiveLink}
-          />
+          <span onClick={() => setNewCampaign(false)}>
+            <RenderLinks
+              data={navLinks}
+              activeLink={activeLink}
+              setActiveLink={setActiveLink}
+            />
+          </span>
         </div>
 
         <div className="bg-white rounded  mt-6 py-8 px-8 flex flex-col justify-center items-center text-center">
