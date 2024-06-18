@@ -36,6 +36,16 @@ export const ContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  // Function to fetch campaign details by ID
+  const fetchCampaignDetails = async (id) => {
+    try {
+      const response = await api.get(`/Campaign/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching campaign details:", error);
+    }
+  };
+
   // Function to delete a campaign
   const deleteCampaign = async (campaignId) => {
     try {
@@ -44,16 +54,6 @@ export const ContextProvider = ({ children }) => {
       fetchData();
     } catch (error) {
       console.error("Error deleting campaign:", error);
-    }
-  };
-
-  // Function to fetch campaign details by ID
-  const fetchCampaignDetails = async (id) => {
-    try {
-      const response = await api.get(`/Campaign/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching campaign details:", error);
     }
   };
 
