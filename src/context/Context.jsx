@@ -8,7 +8,6 @@ export const ContextProvider = ({ children }) => {
   const [totalCampaigns, setTotalCampaigns] = useState(0);
   const [totalInactiveCampaigns, setTotalInactiveCampaigns] = useState(0);
   const [totalActiveCampaigns, setTotalActiveCampaigns] = useState(0);
-  const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [showCampaignSuccessModal, setShowCampaignSuccessModal] =
     useState(false);
   const [campaignDetail, setCampaignDetail] = useState(null);
@@ -51,7 +50,6 @@ export const ContextProvider = ({ children }) => {
   const deleteCampaign = async (campaignId) => {
     try {
       await api.delete(`/Campaign/${campaignId}`);
-      // After successful deletion, refresh campaign data
       fetchData();
     } catch (error) {
       console.error("Error deleting campaign:", error);
@@ -63,8 +61,6 @@ export const ContextProvider = ({ children }) => {
     totalCampaigns,
     totalInactiveCampaigns,
     totalActiveCampaigns,
-    selectedCampaign,
-    setSelectedCampaign,
     showCampaignSuccessModal,
     setShowCampaignSuccessModal,
     deleteCampaign,
