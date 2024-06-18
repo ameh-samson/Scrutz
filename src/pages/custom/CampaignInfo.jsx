@@ -1,20 +1,45 @@
-import { useGlobalContext } from "@/context/Context";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import api from "@/api"; // Ensure this path is correct
 import SectionTitle from "./SectionTitle";
 import { IoMdArrowBack } from "react-icons/io";
+import { useGlobalContext } from "@/context/Context";
 
 const CampaignInfo = () => {
-  const { selectedCampaign, openDetailView, setSelectedCampaign } =
-    useGlobalContext();
+  const { id } = useParams();
+  const { selectedCampaign, setSelectedCampaign } = useGlobalContext();
+  const [campaignDetail, setCampaignDetail] = useState(null);
+
+  const fetchCampaignDetails = async () => {
+    try {
+      const response = await api.get(`/Campaign/${id}`);
+      setCampaignDetail(response.data);
+    } catch (error) {
+      console.error("Error fetching campaign details:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!selectedCampaign) {
+      fetchCampaignDetails();
+    } else {
+      setCampaignDetail(selectedCampaign);
+    }
+  }, [id, selectedCampaign]);
+
+  if (!campaignDetail) {
+    return <div>Loading...</div>; // Loading state
+  }
 
   return (
     <div>
       <div>
-        <button
-          onClick={() => setSelectedCampaign(null)}
-          className="flex items-center"
-        >
-          <IoMdArrowBack /> Back
-        </button>
+        <Link to="/campaign">
+          <button className="flex items-center">
+            <IoMdArrowBack /> Back
+          </button>
+        </Link>
       </div>
 
       <div className="flex items-center justify-between">
@@ -24,20 +49,20 @@ const CampaignInfo = () => {
           Campaign Status |{" "}
           <span
             className={`${
-              selectedCampaign.campaignStatus === "Active"
+              campaignDetail.campaignStatus === "Active"
                 ? "text-green-600"
-                : selectedCampaign.campaignStatus === "Inactive"
+                : campaignDetail.campaignStatus === "Inactive"
                 ? "text-red"
                 : ""
             }`}
           >
-            {selectedCampaign.campaignStatus}
+            {campaignDetail.campaignStatus}
           </span>
         </span>
       </div>
 
       <div>
-        <h2>{selectedCampaign.campaignName}</h2>
+        <h2>{campaignDetail.campaignName}</h2>
       </div>
     </div>
   );
