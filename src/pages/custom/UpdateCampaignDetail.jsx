@@ -35,8 +35,9 @@ const parseDate = (dateString) => {
 };
 
 const UpdateCampaignDetail = () => {
-  const { campaignDetail, fetchCampaignDetails } = useGlobalContext();
+  const { fetchCampaignDetails } = useGlobalContext();
   const [campaignStatus, setCampaignStatus] = useState("");
+  const [isEditable, setIsEditable] = useState(false);
   const { id } = useParams();
 
   const form = useForm({
@@ -121,6 +122,7 @@ const UpdateCampaignDetail = () => {
                         placeholder="e.g  The Future is now"
                         {...field}
                         className="mt-2 px-4 py-3 text-gray2"
+                        readOnly={!isEditable}
                       />
                     </FormControl>
                   </div>
@@ -144,6 +146,7 @@ const UpdateCampaignDetail = () => {
                         placeholder="Please add a description to your campaign"
                         {...field}
                         className="mt-2 px-4 py-3 text-gray2"
+                        readOnly={!isEditable}
                       />
                     </FormControl>
                   </div>
@@ -166,6 +169,7 @@ const UpdateCampaignDetail = () => {
                           placeholder="dd/mm/yyyy"
                           {...field}
                           className="mt-2 px-4 py-3 text-gray2"
+                          readOnly={!isEditable}
                         />
                       </FormControl>
                     </div>
@@ -187,6 +191,7 @@ const UpdateCampaignDetail = () => {
                           placeholder="dd/mm/yyyy"
                           {...field}
                           className="mt-2 px-4 py-3 text-gray2"
+                          readOnly={!isEditable}
                         />
                       </FormControl>
                     </div>
@@ -212,6 +217,7 @@ const UpdateCampaignDetail = () => {
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
+                        readOnly={!isEditable}
                       />
                     </div>
                   </FormControl>
@@ -232,6 +238,7 @@ const UpdateCampaignDetail = () => {
                         placeholder="To add keywords, type your keyword and press enter"
                         {...field}
                         className="mt-2 px-4 py-3 text-gray2"
+                        readOnly={!isEditable}
                       />
                     </FormControl>
                   </div>
@@ -259,6 +266,7 @@ const UpdateCampaignDetail = () => {
                           <SelectValue
                             placeholder="Select"
                             className="text-gray2"
+                            readOnly={!isEditable}
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -276,17 +284,17 @@ const UpdateCampaignDetail = () => {
 
           {/* Buttons */}
           <div className="mt-10 md:mt-14 flex items-center gap-3">
-            <Link to="/campaign">
-              <Button size="lg" className="bg-red hover:bg-red/90">
-                Stop Campaign
-              </Button>
-            </Link>
+            <Button size="lg" className="bg-red hover:bg-red/90">
+              Stop Campaign
+            </Button>
+
             <Button
+              onClick={() => setIsEditable(!isEditable)}
               size="lg"
               variant="outline"
               className=" border-darkCyan text-darkCyan"
             >
-              Edit Information
+              {isEditable ? "Save Information" : "Edit Information"}
             </Button>
           </div>
         </form>
