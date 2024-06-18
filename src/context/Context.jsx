@@ -76,7 +76,6 @@ export const ContextProvider = ({ children }) => {
     totalActiveCampaigns,
     showCampaignSuccessModal,
     setShowCampaignSuccessModal,
-    deleteCampaign,
     fetchCampaignDetails,
     fetchData,
     campaignDetail,
