@@ -26,6 +26,7 @@ import {
 
 import { newCampaignFormSchema } from "@/formsValidation";
 import api from "@/api";
+import { useGlobalContext } from "@/context/Context";
 
 // Utility function to convert date from "dd/mm/yyyy" to "yyyy-mm-dd"
 const parseDate = (dateString) => {
@@ -34,6 +35,8 @@ const parseDate = (dateString) => {
 };
 
 const CreateNewForm = () => {
+  const { setShowCampaignSuccessModal } = useGlobalContext();
+
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
     defaultValues: {
