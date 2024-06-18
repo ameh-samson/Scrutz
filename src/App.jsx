@@ -5,7 +5,6 @@ import Campaign from "./pages/Campaign";
 import MarketIntelligence from "./pages/MarketIntelligence";
 import Settings from "./pages/Settings";
 import Support from "./pages/Support";
-import CreateNewCampaign from "./pages/custom/CreateNewCampaign";
 
 function App() {
   return (
