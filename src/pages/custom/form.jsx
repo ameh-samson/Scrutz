@@ -229,6 +229,7 @@ const CreateNewForm = () => {
                     <SelectContent>
                       <SelectItem value="daily">Daily</SelectItem>
                       <SelectItem value="weekly">Weekly</SelectItem>
+                      <SelectItem value="weekly">Monthly</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
