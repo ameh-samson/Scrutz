@@ -1,7 +1,7 @@
 import React from "react";
 import SectionTitle from "./SectionTitle";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +27,7 @@ import { useGlobalContext } from "@/context/Context";
 import { newCampaignIntro } from "@/data";
 import { newCampaignFormSchema } from "@/formsValidation";
 import { toTitleCase, formatDate } from "@/lib/utils"; // Assuming formatDate is imported for date formatting
+import api from "@/api";
 
 const CreateNewForm = () => {
   const { newCampaign, setNewCampaign } = useGlobalContext();
@@ -38,15 +39,32 @@ const CreateNewForm = () => {
       campaignDescription: "",
       startDate: "",
       endDate: "",
+      digestCampaign: false,
       linkedKeywords: "",
-      dailyDigest: false,
+      dailyDigest: "",
     },
   });
 
-  // for testing form submission
-  function onSubmit(data) {
-    console.log(data);
-    form.reset();
+  // Function to handle form submission
+  async function onSubmit(data) {
+    try {
+      // Convert date format to ISO 8601
+      data.startDate = new Date(data.startDate).toISOString();
+      data.endDate = new Date(data.endDate).toISOString();
+
+      // Convert linkedKeywords to an array if needed
+      data.linkedKeywords = [data.linkedKeywords];
+
+      // Make a POST request to your API endpoint
+      const response = await api.post("/Campaign", data);
+
+      // Handle success, e.g., show a success message or redirect
+      console.log("Form submitted successfully:", response.data);
+      form.reset(); // Reset the form after successful submission
+    } catch (error) {
+      // Handle error, e.g., show an error message
+      console.error("Error submitting form:", error);
+    }
   }
 
   return (
@@ -210,9 +228,6 @@ const CreateNewForm = () => {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="daily">Daily</SelectItem>
-                      <SelectItem value="Not too often">
-                        Not too often
-                      </SelectItem>
                       <SelectItem value="weekly">Weekly</SelectItem>
                     </SelectContent>
                   </Select>
