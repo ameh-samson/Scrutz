@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,16 +29,11 @@ import {
 import { newCampaignFormSchema } from "@/formsValidation";
 import { useGlobalContext } from "@/context/Context";
 
-const parseDate = (dateString) => {
-  const [day, month, year] = dateString.split("/");
-  return `${year}-${month}-${day}`;
-};
-
-const UpdateCampaignDetail = () => {
-  const { fetchCampaignDetails } = useGlobalContext();
-  const [campaignStatus, setCampaignStatus] = useState("");
-  const [isEditable, setIsEditable] = useState(false);
+const CampaignInfo = () => {
   const { id } = useParams();
+  const { fetchCampaignDetails, campaignDetail, setCampaignDetail } =
+    useGlobalContext();
+  const [isEditable, setIsEditable] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
@@ -65,15 +60,31 @@ const UpdateCampaignDetail = () => {
         linkedKeywords: details.linkedKeywords || "",
         dailyDigest: details.dailyDigest || "",
       });
-
-      setCampaignStatus(details.campaignStatus || "");
     };
 
     getCampaignDetails();
   }, [id, fetchCampaignDetails, form]);
 
   async function onSubmit(data) {
-    console.log(data);
+    try {
+      data.startDate = new Date(parseDate(data.startDate)).toISOString();
+      data.endDate = new Date(parseDate(data.endDate)).toISOString();
+      data.linkedKeywords = [data.linkedKeywords];
+
+      const response = await api.put(`/Campaign/${id}`, data); // Change post to put and include the campaign ID in the URL
+
+      console.log("Form submitted successfully:", response.data);
+      form.reset();
+      setShowCampaignSuccessModal(true);
+
+      fetchData();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  }
+
+  if (!campaignDetail) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -93,19 +104,18 @@ const UpdateCampaignDetail = () => {
           Campaign Status |{" "}
           <span
             className={`${
-              campaignStatus === "Active"
+              campaignDetail.campaignStatus === "Active"
                 ? "text-green-600"
-                : campaignStatus === "Inactive"
+                : campaignDetail.campaignStatus === "Inactive"
                 ? "text-red"
                 : ""
             }`}
           >
-            {campaignStatus}
+            {campaignDetail.campaignStatus}
           </span>
         </span>
       </div>
 
-      {/* Form fields */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <>
@@ -291,7 +301,7 @@ const UpdateCampaignDetail = () => {
             </Link>
 
             <Button
-              onClick={() => setIsEditable(!isEditable)}
+              type="submit"
               size="lg"
               variant="outline"
               className=" border-darkCyan text-darkCyan"
@@ -305,4 +315,4 @@ const UpdateCampaignDetail = () => {
   );
 };
 
-export default UpdateCampaignDetail;
+export default CampaignInfo;
