@@ -13,5 +13,5 @@ export const toTitleCase = (str) => {
 
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
-  return format(date, 'MMMM d, yyyy');
+  return format(date, 'dd/MM/yyyy');
 };
