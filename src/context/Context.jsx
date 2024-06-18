@@ -9,6 +9,7 @@ export const ContextProvider = ({ children }) => {
   const [totalCampaigns, setTotalCampaigns] = useState(0);
   const [totalInactiveCampaigns, setTotalInactiveCampaigns] = useState(0);
   const [totalActiveCampaigns, setTotalActiveCampaigns] = useState(0);
+  const [selectedCampaign, setSelectedCampaign] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -34,6 +35,11 @@ export const ContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  // open the detailed campaign
+  const openDetailView = (campaign) => {
+    setSelectedCampaign(campaign);
+  };
+
   const contextValue = {
     campaigns,
     newCampaign,
@@ -41,6 +47,9 @@ export const ContextProvider = ({ children }) => {
     totalCampaigns,
     totalInactiveCampaigns,
     totalActiveCampaigns,
+    openDetailView,
+    selectedCampaign,
+    setSelectedCampaign,
   };
 
   return (

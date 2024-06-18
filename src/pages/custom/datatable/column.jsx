@@ -3,8 +3,10 @@ import editIcon from "../../../assets/edit.png";
 import deleteIcon from "../../../assets/delete.png";
 import { toTitleCase } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import { formatDate } from "@/lib/utils";
+import { useGlobalContext } from "@/context/Context";
 
 export const columns = [
   {
@@ -51,15 +53,13 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const payment = row.original;
+      const { selectedCampaign, openDetailView } = useGlobalContext();
 
       return (
         <div className="flex items-center gap-6">
-          <Link to={``}>
-            <button>
-              <img src={viewIcon} alt="view" className="w-5" />
-            </button>
-          </Link>
+          <button onClick={() => openDetailView(row.original)}>
+            <img src={viewIcon} alt="view" className="w-5" />
+          </button>
 
           <button>
             <img src={editIcon} alt="view" className="w-4" />
