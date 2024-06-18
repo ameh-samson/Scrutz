@@ -4,6 +4,8 @@ import deleteIcon from "../../../assets/delete.png";
 import { toTitleCase } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
+import { formatDate } from "@/lib/utils";
+
 export const columns = [
   {
     accessorKey: "s/n",
@@ -13,11 +15,16 @@ export const columns = [
   {
     accessorKey: "campaignName",
     header: "Campaign Name",
+    cell: ({ row }) => {
+      const name = row.original.campaignName;
+      return toTitleCase(name);
+    },
   },
 
   {
     accessorKey: "startDate",
     header: "Start Date",
+    cell: ({ row }) => formatDate(row.original.startDate),
   },
   {
     accessorKey: "campaignStatus",
@@ -27,9 +34,9 @@ export const columns = [
       return (
         <span
           className={`font-bold ${
-            status === "active"
+            status === "Active"
               ? "text-green-500"
-              : status === "inactive"
+              : status === "Inactive"
               ? "text-red"
               : ""
           }`}

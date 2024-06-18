@@ -5,8 +5,17 @@ import { Input } from "@/components/ui/input";
 import { campaignsList } from "@/data";
 import { DataTable } from "./custom/datatable/datatable";
 import { columns } from "./custom/datatable/column";
+import api from "@/api";
+import { useGlobalContext } from "@/context/Context";
 
 const Campaign = () => {
+  const {
+    campaigns,
+    totalCampaigns,
+    totalInactiveCampaigns,
+    totalActiveCampaigns,
+  } = useGlobalContext();
+
   return (
     <div>
       <div>
@@ -16,13 +25,13 @@ const Campaign = () => {
       <div className="flex items-center justify-between mt-6">
         <div className="flex gap-4">
           <span className="p-3 border border-darkCyan rounded text-sm text-darkCyan">
-            All(90)
+            All({totalCampaigns})
           </span>
           <span className="p-3 border border-darkCyan rounded text-sm text-darkCyan">
-            Inactive(90)
+            Inactive({totalInactiveCampaigns})
           </span>
           <span className="p-3 border border-darkCyan rounded text-sm text-darkCyan">
-            Active(90)
+            Active({totalActiveCampaigns})
           </span>
         </div>
 
@@ -45,13 +54,11 @@ const Campaign = () => {
             <FaChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
         </div>
-
-      
       </div>
 
       <div className="mt-8">
-          <DataTable columns={columns} data={campaignsList} />
-        </div>
+        <DataTable columns={columns} data={campaigns} />
+      </div>
     </div>
   );
 };
