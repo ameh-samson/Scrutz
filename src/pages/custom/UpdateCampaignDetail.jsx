@@ -284,9 +284,11 @@ const UpdateCampaignDetail = () => {
 
           {/* Buttons */}
           <div className="mt-10 md:mt-14 flex items-center gap-3">
-            <Button size="lg" className="bg-red hover:bg-red/90">
-              Stop Campaign
-            </Button>
+            <Link>
+              <Button size="lg" className="bg-red hover:bg-red/90">
+                Stop Campaign
+              </Button>
+            </Link>
 
             <Button
               onClick={() => setIsEditable(!isEditable)}
