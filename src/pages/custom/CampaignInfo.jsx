@@ -44,13 +44,3 @@ const CampaignInfo = () => {
 };
 
 export default CampaignInfo;
-
-// <div>
-
-// {" "}
-// <h2>{selectedCampaign.campaignName}</h2>
-// <p>Start Date: {selectedCampaign.startDate}</p>
-// <p>Status: {selectedCampaign.campaignStatus}</p>
-// {/* Add more details as needed */}
-// <button onClick={() => setSelectedCampaign(null)}>Close</button>
-// </div>

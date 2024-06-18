@@ -10,7 +10,7 @@ export const ContextProvider = ({ children }) => {
   const [totalActiveCampaigns, setTotalActiveCampaigns] = useState(0);
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [showCampaignSuccessModal, setShowCampaignSuccessModal] =
-    useState(true);
+    useState(false);
 
   const fetchData = async () => {
     try {

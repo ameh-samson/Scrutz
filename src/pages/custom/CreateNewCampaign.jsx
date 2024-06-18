@@ -57,9 +57,9 @@ const CreateNewCampaign = () => {
         <SectionTitle>{newCampaignIntro[0].title}</SectionTitle>
       </div>
 
-      <div className="max-w-2xl overflow-y: auto">
+      <>
         <CreateNewForm />
-      </div>
+      </>
     </div>
   );
 };

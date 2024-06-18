@@ -23,10 +23,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useGlobalContext } from "@/context/Context";
-import { newCampaignIntro } from "@/data";
+
 import { newCampaignFormSchema } from "@/formsValidation";
-import { toTitleCase, formatDate } from "@/lib/utils"; // Assuming formatDate is imported for date formatting
 import api from "@/api";
 
 // Utility function to convert date from "dd/mm/yyyy" to "yyyy-mm-dd"
@@ -36,9 +34,6 @@ const parseDate = (dateString) => {
 };
 
 const CreateNewForm = () => {
-  const { newCampaign, setNewCampaign, setShowCampaignSuccessModal } =
-    useGlobalContext();
-
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
     defaultValues: {
@@ -73,7 +68,7 @@ const CreateNewForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div>
+        <>
           {/* Campaign Name */}
           <FormField
             control={form.control}
@@ -168,11 +163,11 @@ const CreateNewForm = () => {
             name="digestCampaign"
             render={({ field }) => (
               <FormItem className="flex items-center justify-between mt-8 md:mt-12">
-                <div>
+                <>
                   <FormLabel className="text-gray">
                     Want to receive daily digest about the campaign?
                   </FormLabel>
-                </div>
+                </>
                 <FormControl>
                   <div className="m-0">
                     <Switch
@@ -238,7 +233,7 @@ const CreateNewForm = () => {
               </FormItem>
             )}
           />
-        </div>
+        </>
 
         {/* Buttons */}
         <div className="mt-10 md:mt-14 flex items-center gap-3">
