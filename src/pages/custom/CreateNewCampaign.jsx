@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { newCampaignFormSchema } from "@/formsValidation";
 import { useGlobalContext } from "@/context/Context";
-import CreateNewForm from "./form";
+import CreateNewForm from "./Form";
 
 const CreateNewCampaign = () => {
   const { newCampaign, setNewCampaign } = useGlobalContext();
