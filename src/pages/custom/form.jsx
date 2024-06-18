@@ -35,7 +35,7 @@ const parseDate = (dateString) => {
 };
 
 const CreateNewForm = () => {
-  const { setShowCampaignSuccessModal } = useGlobalContext();
+  const { setShowCampaignSuccessModal, fetchData } = useGlobalContext();
 
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
@@ -63,6 +63,8 @@ const CreateNewForm = () => {
       console.log("Form submitted successfully:", response.data);
       form.reset();
       setShowCampaignSuccessModal(true);
+
+      fetchData();
     } catch (error) {
       console.error("Error submitting form:", error);
     }

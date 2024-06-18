@@ -51,7 +51,7 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const { openDetailView, deleteCampaign } = useGlobalContext();
+      const { deleteCampaign } = useGlobalContext();
 
       return (
         <div className="flex items-center gap-6">
