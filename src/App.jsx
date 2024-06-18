@@ -17,7 +17,7 @@ function App() {
           <Route index element={<Overview />} />
           <Route path="/campaign" element={<Campaign />} />
           <Route path="/campaign/:id" element={<CampaignInfo />} />
-          <Route path="/campaign/edit/:id" component={UpdateCampaignDetail} />
+          <Route path="/campaign/edit/:id" element={<UpdateCampaignDetail />} />
           <Route path="/marketIntelligence" element={<MarketIntelligence />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/support" element={<Support />} />

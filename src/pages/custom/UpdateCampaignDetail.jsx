@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -32,12 +33,9 @@ const parseDate = (dateString) => {
 };
 
 const UpdateCampaignDetail = () => {
-  const {
-    setShowCampaignSuccessModal,
-    fetchData,
-    editingCampaign,
-    setEditingCampaign,
-  } = useGlobalContext();
+  const { campaignDetail, fetchCampaignDetails } = useGlobalContext();
+
+  const { id } = useParams();
 
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
@@ -53,39 +51,24 @@ const UpdateCampaignDetail = () => {
   });
 
   useEffect(() => {
-    if (editingCampaign) {
+    const getCampaignDetails = async () => {
+      const details = await fetchCampaignDetails(id); // Fetch campaign details by ID
       form.reset({
-        campaignName: editingCampaign.campaignName || "",
-        campaignDescription: editingCampaign.campaignDescription || "",
-        startDate: editingCampaign.startDate || "",
-        endDate: editingCampaign.endDate || "",
-        digestCampaign: editingCampaign.digestCampaign || false,
-        linkedKeywords: editingCampaign.linkedKeywords || "",
-        dailyDigest: editingCampaign.dailyDigest || "",
+        campaignName: details.campaignName || "",
+        campaignDescription: details.campaignDescription || "",
+        startDate: details.startDate || "",
+        endDate: details.endDate || "",
+        digestCampaign: details.digestCampaign || false,
+        linkedKeywords: details.linkedKeywords || "",
+        dailyDigest: details.dailyDigest || "",
       });
-    }
-  }, [editingCampaign, form]);
+    };
+
+    getCampaignDetails();
+  });
 
   async function onSubmit(data) {
-    try {
-      data.startDate = new Date(parseDate(data.startDate)).toISOString();
-      data.endDate = new Date(parseDate(data.endDate)).toISOString();
-      data.linkedKeywords = [data.linkedKeywords];
-
-      if (editingCampaign) {
-        await api.put(`/Campaign/${editingCampaign.id}`, data);
-      } else {
-        await api.post("/Campaign", data);
-      }
-
-      console.log("Form submitted successfully");
-      form.reset();
-      setShowCampaignSuccessModal(true);
-      setEditingCampaign(null);
-      fetchData();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
+    console.log(data);
   }
 
   return (
@@ -280,21 +263,6 @@ const UpdateCampaignDetail = () => {
             </div>
           </form>
         </Form>
-
-        <div className="mt-10 md:mt-14 flex items-center gap-3">
-          <Link to="/campaign">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-darkCyan text-darkCyan hover:bg-darkCyan hover:text-white"
-            >
-              Cancel
-            </Button>
-          </Link>
-          <Button size="lg" type="submit">
-            {editingCampaign ? "Update Campaign" : "Create Campaign"}
-          </Button>
-        </div>
       </form>
     </Form>
   );

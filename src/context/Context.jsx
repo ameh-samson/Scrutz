@@ -11,6 +11,7 @@ export const ContextProvider = ({ children }) => {
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [showCampaignSuccessModal, setShowCampaignSuccessModal] =
     useState(false);
+  const [campaignDetail, setCampaignDetail] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -69,6 +70,8 @@ export const ContextProvider = ({ children }) => {
     deleteCampaign,
     fetchCampaignDetails,
     fetchData,
+    campaignDetail,
+    setCampaignDetail,
   };
 
   return (

@@ -61,7 +61,7 @@ export const columns = [
             </button>
           </Link>
 
-          <Link to={`/campaign/edit${row.original.id}`}>
+          <Link to={`/campaign/edit/${row.original.id}`}>
             <button>
               <img src={editIcon} alt="view" className="w-4" />
             </button>

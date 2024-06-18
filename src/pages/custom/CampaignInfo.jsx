@@ -7,8 +7,8 @@ import { useGlobalContext } from "@/context/Context";
 
 const CampaignInfo = () => {
   const { id } = useParams();
-  const { fetchCampaignDetails } = useGlobalContext();
-  const [campaignDetail, setCampaignDetail] = useState(null);
+  const { fetchCampaignDetails, campaignDetail, setCampaignDetail } =
+    useGlobalContext();
 
   useEffect(() => {
     const getCampaignDetails = async () => {
