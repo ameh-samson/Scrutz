@@ -30,7 +30,8 @@ import { toTitleCase, formatDate } from "@/lib/utils"; // Assuming formatDate is
 import api from "@/api";
 
 const CreateNewForm = () => {
-  const { newCampaign, setNewCampaign } = useGlobalContext();
+  const { newCampaign, setNewCampaign, setShowCampaignSuccessModal } =
+    useGlobalContext();
 
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
@@ -48,21 +49,17 @@ const CreateNewForm = () => {
   // Function to handle form submission
   async function onSubmit(data) {
     try {
-      // Convert date format to ISO 8601
       data.startDate = new Date(data.startDate).toISOString();
       data.endDate = new Date(data.endDate).toISOString();
 
-      // Convert linkedKeywords to an array if needed
       data.linkedKeywords = [data.linkedKeywords];
 
-      // Make a POST request to your API endpoint
       const response = await api.post("/Campaign", data);
 
-      // Handle success, e.g., show a success message or redirect
       console.log("Form submitted successfully:", response.data);
-      form.reset(); // Reset the form after successful submission
+      form.reset();
+      setShowCampaignSuccessModal(true);
     } catch (error) {
-      // Handle error, e.g., show an error message
       console.error("Error submitting form:", error);
     }
   }
