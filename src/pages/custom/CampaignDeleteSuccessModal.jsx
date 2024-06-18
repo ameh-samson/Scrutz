@@ -4,19 +4,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CampaignDeleteSuccessModal = () => {
-  const { setSuccessModal } = useGlobalContext(``);
+  const { setSuccessModal, campaignNameToDelete } = useGlobalContext();
   return (
     <div className="bg-white p-16 rounded shadow-lg text-center flex flex-col items-center justify-center">
-      <p className="my-12">Campaign Deleted</p>
-      <p>MTN campaign has been deleted</p>
+      <p className="my-12 text-base font-semibold">Campaign Deleted</p>
+      <p className="text-sm text-gray">
+        {campaignNameToDelete} campaign has been deleted
+      </p>
 
       <Button
         onClick={() => setSuccessModal(false)}
         size="lg"
-        variant="outline"
-        className="border-darkCyan text-darkCyan hover:bg-darkCyan hover:text-white"
+        className="mt-12 border-darkCyan text-white hover:bg-darkCyan/90"
       >
-        Cancel
+        Go Back to campaign list
       </Button>
     </div>
   );

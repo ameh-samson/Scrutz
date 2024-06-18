@@ -14,6 +14,7 @@ export const ContextProvider = ({ children }) => {
   const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
+  const [campaignNameToDelete, setCampaignNameToDelete] = useState("");
 
   const fetchData = async () => {
     try {
@@ -51,8 +52,9 @@ export const ContextProvider = ({ children }) => {
   };
 
   // Function to handle delete button click
-  const handleDeleteClick = (campaignId) => {
+  const handleDeleteClick = (campaignId, campaignName) => {
     setSelectedCampaignId(campaignId);
+    setCampaignNameToDelete(campaignName);
     setConfirmDeleteModal(true);
   };
 
@@ -85,6 +87,7 @@ export const ContextProvider = ({ children }) => {
     setConfirmDeleteModal,
     successModal,
     setSuccessModal,
+    campaignNameToDelete,
   };
 
   return (

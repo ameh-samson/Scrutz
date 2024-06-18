@@ -68,7 +68,11 @@ export const columns = [
             </button>
           </Link>
 
-          <button onClick={() => handleDeleteClick(row.original.id)}>
+          <button
+            onClick={() =>
+              handleDeleteClick(row.original.id, row.original.campaignName)
+            }
+          >
             <img src={deleteIcon} alt="view" className="w-5" />
           </button>
         </div>
