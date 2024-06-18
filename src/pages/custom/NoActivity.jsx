@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import emptyImg from "../../assets/empty.png";
-import { useGlobalContext } from "@/context/Context";
 
 const NoActivity = () => {
-  const { newCampaign, setNewCampaign } = useGlobalContext();
-
   return (
     <div className="flex flex-col items-center justify-center">
       <img src={emptyImg} alt="empty" className="w-[462px]" />

@@ -4,7 +4,6 @@ import { FaChevronDown } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { DataTable } from "./custom/datatable/datatable";
 import { columns } from "./custom/datatable/column";
-import api from "@/api";
 import { useGlobalContext } from "@/context/Context";
 
 const Campaign = () => {

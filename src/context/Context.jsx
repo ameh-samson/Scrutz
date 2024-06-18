@@ -32,6 +32,7 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
+  // fetches the campaign data
   useEffect(() => {
     fetchData();
   }, []);
