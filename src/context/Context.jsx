@@ -11,6 +11,9 @@ export const ContextProvider = ({ children }) => {
   const [showCampaignSuccessModal, setShowCampaignSuccessModal] =
     useState(false);
   const [campaignDetail, setCampaignDetail] = useState(null);
+  const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [selectedCampaignId, setSelectedCampaignId] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -47,11 +50,18 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  // Function to delete a campaign
-  const deleteCampaign = async (campaignId) => {
+  // Function to handle delete button click
+  const handleDeleteClick = (campaignId) => {
+    setSelectedCampaignId(campaignId);
+    setConfirmDeleteModal(true);
+  };
+
+  const deleteCampaign = async () => {
     try {
-      await api.delete(`/Campaign/${campaignId}`);
-      fetchData();
+      await api.delete(`/Campaign/${selectedCampaignId}`);
+      setConfirmDeleteModal(false);
+      setSuccessModal(true);
+      fetchData(); // Refresh campaign list
     } catch (error) {
       console.error("Error deleting campaign:", error);
     }
@@ -69,6 +79,12 @@ export const ContextProvider = ({ children }) => {
     fetchData,
     campaignDetail,
     setCampaignDetail,
+    confirmDeleteModal,
+    handleDeleteClick,
+    deleteCampaign,
+    setConfirmDeleteModal,
+    successModal,
+    setSuccessModal,
   };
 
   return (

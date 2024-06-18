@@ -51,7 +51,8 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const { deleteCampaign, editCampaign } = useGlobalContext();
+      const { deleteCampaign, editCampaign, handleDeleteClick } =
+        useGlobalContext();
 
       return (
         <div className="flex items-center gap-6">
@@ -67,7 +68,7 @@ export const columns = [
             </button>
           </Link>
 
-          <button onClick={() => deleteCampaign(row.original.id)}>
+          <button onClick={() => handleDeleteClick(row.original.id)}>
             <img src={deleteIcon} alt="view" className="w-5" />
           </button>
         </div>
