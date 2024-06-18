@@ -5,6 +5,7 @@ import Campaign from "./pages/Campaign";
 import MarketIntelligence from "./pages/MarketIntelligence";
 import Settings from "./pages/Settings";
 import Support from "./pages/Support";
+import CreateNewCampaign from "./pages/custom/CreateNewCampaign";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/marketIntelligence" element={<MarketIntelligence />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/createNewCampaign" element={<CreateNewCampaign />} />
         </Route>
       </Routes>
     </BrowserRouter>

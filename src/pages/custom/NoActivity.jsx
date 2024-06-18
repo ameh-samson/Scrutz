@@ -13,9 +13,11 @@ const NoActivity = () => {
       <div className="mt-11 text-center">
         <p>No activity yet. Create anew campaign to get started</p>
 
-        <Button onClick={() => setNewCampaign(!newCampaign)} className="mt-9">
-          <span>+ New Campaign</span>
-        </Button>
+        <Link to="/createNewCampaign">
+          <Button className="mt-9">
+            <span>+ New Campaign</span>
+          </Button>
+        </Link>
       </div>
     </div>
   );

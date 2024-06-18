@@ -5,13 +5,12 @@ const GlobalContext = createContext({});
 
 export const ContextProvider = ({ children }) => {
   const [campaigns, setCampaigns] = useState([]);
-  const [newCampaign, setNewCampaign] = useState(false);
   const [totalCampaigns, setTotalCampaigns] = useState(0);
   const [totalInactiveCampaigns, setTotalInactiveCampaigns] = useState(0);
   const [totalActiveCampaigns, setTotalActiveCampaigns] = useState(0);
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [showCampaignSuccessModal, setShowCampaignSuccessModal] =
-    useState(true);
+    useState(false);
 
   const fetchData = async () => {
     try {
@@ -44,8 +43,6 @@ export const ContextProvider = ({ children }) => {
 
   const contextValue = {
     campaigns,
-    newCampaign,
-    setNewCampaign,
     totalCampaigns,
     totalInactiveCampaigns,
     totalActiveCampaigns,

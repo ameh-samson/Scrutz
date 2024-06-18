@@ -29,6 +29,12 @@ import { newCampaignFormSchema } from "@/formsValidation";
 import { toTitleCase, formatDate } from "@/lib/utils"; // Assuming formatDate is imported for date formatting
 import api from "@/api";
 
+// Utility function to convert date from "dd/mm/yyyy" to "yyyy-mm-dd"
+const parseDate = (dateString) => {
+  const [day, month, year] = dateString.split("/");
+  return `${year}-${month}-${day}`;
+};
+
 const CreateNewForm = () => {
   const { newCampaign, setNewCampaign, setShowCampaignSuccessModal } =
     useGlobalContext();
@@ -49,8 +55,8 @@ const CreateNewForm = () => {
   // Function to handle form submission
   async function onSubmit(data) {
     try {
-      data.startDate = new Date(data.startDate).toISOString();
-      data.endDate = new Date(data.endDate).toISOString();
+      data.startDate = new Date(parseDate(data.startDate)).toISOString();
+      data.endDate = new Date(parseDate(data.endDate)).toISOString();
 
       data.linkedKeywords = [data.linkedKeywords];
 
@@ -114,7 +120,6 @@ const CreateNewForm = () => {
 
           <div className="grid grid-cols-2 gap-6">
             {/* Start Date */}
-
             <FormField
               control={form.control}
               name="startDate"
@@ -237,9 +242,8 @@ const CreateNewForm = () => {
 
         {/* Buttons */}
         <div className="mt-10 md:mt-14 flex items-center gap-3">
-          <Link href="/">
+          <Link to="/campaign">
             <Button
-              onClick={() => setNewCampaign(false)}
               size="lg"
               variant="outline"
               className="border-darkCyan text-darkCyan hover:bg-darkCyan hover:text-white"
