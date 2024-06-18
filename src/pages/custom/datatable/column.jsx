@@ -1,12 +1,10 @@
 import viewIcon from "../../../assets/view.png";
 import editIcon from "../../../assets/edit.png";
 import deleteIcon from "../../../assets/delete.png";
-import { toTitleCase } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-
-import { formatDate } from "@/lib/utils";
 import { useGlobalContext } from "@/context/Context";
+import { formatDate } from "@/lib/utils";
+import { toTitleCase } from "@/lib/utils";
 
 export const columns = [
   {
@@ -53,7 +51,7 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const { selectedCampaign, openDetailView } = useGlobalContext();
+      const { openDetailView, deleteCampaign } = useGlobalContext();
 
       return (
         <div className="flex items-center gap-6">
@@ -66,7 +64,7 @@ export const columns = [
           <button>
             <img src={editIcon} alt="view" className="w-4" />
           </button>
-          <button>
+          <button onClick={() => deleteCampaign(row.original.id)}>
             <img src={deleteIcon} alt="view" className="w-5" />
           </button>
         </div>

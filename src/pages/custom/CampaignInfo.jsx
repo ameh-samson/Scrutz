@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import api from "@/api"; // Ensure this path is correct
 import SectionTitle from "./SectionTitle";
 import { IoMdArrowBack } from "react-icons/io";
 import { useGlobalContext } from "@/context/Context";
 
 const CampaignInfo = () => {
   const { id } = useParams();
-  const { selectedCampaign, setSelectedCampaign } = useGlobalContext();
+  const { fetchCampaignDetails } = useGlobalContext();
   const [campaignDetail, setCampaignDetail] = useState(null);
 
-  const fetchCampaignDetails = async () => {
-    try {
-      const response = await api.get(`/Campaign/${id}`);
-      setCampaignDetail(response.data);
-    } catch (error) {
-      console.error("Error fetching campaign details:", error);
-    }
-  };
-
   useEffect(() => {
-    if (!selectedCampaign) {
-      fetchCampaignDetails();
-    } else {
-      setCampaignDetail(selectedCampaign);
-    }
-  }, [id, selectedCampaign]);
+    const getCampaignDetails = async () => {
+      const details = await fetchCampaignDetails(id);
+      setCampaignDetail(details);
+    };
+    getCampaignDetails();
+  }, [id, fetchCampaignDetails]);
 
   if (!campaignDetail) {
-    return <div>Loading...</div>; // Loading state
+    return <div>Loading...</div>;
   }
 
   return (

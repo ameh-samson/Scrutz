@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { useParams, Link, useLocation } from "react-router-dom";
 import api from "@/api";
 
 const GlobalContext = createContext({});
@@ -37,9 +36,25 @@ export const ContextProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  // open the detailed campaign
-  const openDetailView = (campaign) => {
-    setSelectedCampaign(campaign);
+  // Function to delete a campaign
+  const deleteCampaign = async (campaignId) => {
+    try {
+      await api.delete(`/Campaign/${campaignId}`);
+      // After successful deletion, refresh campaign data
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting campaign:", error);
+    }
+  };
+
+  // Function to fetch campaign details by ID
+  const fetchCampaignDetails = async (id) => {
+    try {
+      const response = await api.get(`/Campaign/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching campaign details:", error);
+    }
   };
 
   const contextValue = {
@@ -47,11 +62,12 @@ export const ContextProvider = ({ children }) => {
     totalCampaigns,
     totalInactiveCampaigns,
     totalActiveCampaigns,
-    openDetailView,
     selectedCampaign,
     setSelectedCampaign,
     showCampaignSuccessModal,
     setShowCampaignSuccessModal,
+    deleteCampaign,
+    fetchCampaignDetails,
   };
 
   return (
