@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { formatDate } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -24,7 +25,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { newCampaignFormSchema } from "@/formsValidation";
-import api from "@/api";
 import { useGlobalContext } from "@/context/Context";
 
 const parseDate = (dateString) => {
@@ -56,8 +56,8 @@ const UpdateCampaignDetail = () => {
       form.reset({
         campaignName: details.campaignName || "",
         campaignDescription: details.campaignDescription || "",
-        startDate: details.startDate || "",
-        endDate: details.endDate || "",
+        startDate: formatDate(details.startDate) || "",
+        endDate: formatDate(details.endDate) || "",
         digestCampaign: details.digestCampaign || false,
         linkedKeywords: details.linkedKeywords || "",
         dailyDigest: details.dailyDigest || "",
