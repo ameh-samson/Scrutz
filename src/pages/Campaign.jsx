@@ -2,7 +2,6 @@ import SectionTitle from "./custom/SectionTitle";
 import { IoIosSearch } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
-import { campaignsList } from "@/data";
 import { DataTable } from "./custom/datatable/datatable";
 import { columns } from "./custom/datatable/column";
 import api from "@/api";
