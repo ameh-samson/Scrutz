@@ -1,10 +1,15 @@
 import { DatePickerWithRange } from "@/components/ui/date-range-picker";
+import { useGlobalContext } from "@/context/Context";
 import SectionTitle from "./custom/SectionTitle";
 import NoActivity from "./custom/NoActivity";
 import { Button } from "@/components/ui/button";
 import { CiExport } from "react-icons/ci";
+import { DataTable } from "./custom/datatable/datatable";
+import { columns } from "./custom/datatable/column";
 
 const Overview = () => {
+  const { campaigns } = useGlobalContext();
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -24,8 +29,12 @@ const Overview = () => {
         </div>
       </div>
 
-      <div>
-        <NoActivity />
+      <div className="mt-8">
+        {campaigns && campaigns.length > 0 ? (
+          <DataTable columns={columns} data={campaigns} />
+        ) : (
+          <NoActivity />
+        )}
       </div>
     </div>
   );
