@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useGlobalContext } from "@/context/Context";
 
 const DesktopSidebar = () => {
-  const [activeLink, setActiveLink] = useState(location.pathname);
-  const { openDetailView } = useGlobalContext();
+  const { openDetailView, activeLink, setActiveLink } = useGlobalContext();
 
   return (
     <div className="w-[400px] h-screen py-6 px-8 flex flex-col justify-between bg-lightGrayish text-[#455454] overflow-y-scroll">

@@ -9,7 +9,7 @@ const Header = () => {
     <div className="sticky top-0 z-10 bg-white">
       <div className="container py-4">
         <div className="flex justify-between items-center">
-          <Link to="/">
+          <Link to="/" className="w-40">
             <img src={companyLogo} alt="Scrutz" className="cursor-pointer" />
           </Link>
 

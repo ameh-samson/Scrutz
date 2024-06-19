@@ -4,6 +4,7 @@ import api from "@/api";
 const GlobalContext = createContext({});
 
 export const ContextProvider = ({ children }) => {
+  const [activeLink, setActiveLink] = useState(location.pathname);
   const [campaigns, setCampaigns] = useState([]);
   const [totalCampaigns, setTotalCampaigns] = useState(0);
   const [totalInactiveCampaigns, setTotalInactiveCampaigns] = useState(0);
@@ -79,6 +80,8 @@ export const ContextProvider = ({ children }) => {
   };
 
   const contextValue = {
+    activeLink,
+    setActiveLink,
     campaigns,
     totalCampaigns,
     totalInactiveCampaigns,
