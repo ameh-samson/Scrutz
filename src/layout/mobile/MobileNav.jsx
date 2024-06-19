@@ -43,11 +43,13 @@ const MobileNav = () => {
         <SheetContent className="bg-lightGrayish">
           <SheetHeader className="text-left">
             <SheetTitle>
-              <img
-                src={companyLogo}
-                alt="Scrutz"
-                className="cursor-pointer w-40"
-              />
+              <Link to="/" className="w-40">
+                <img
+                  src={companyLogo}
+                  alt="Scrutz"
+                  className="cursor-pointer"
+                />
+              </Link>
             </SheetTitle>
           </SheetHeader>
 
