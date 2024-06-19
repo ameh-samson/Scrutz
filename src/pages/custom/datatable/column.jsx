@@ -1,7 +1,6 @@
 import viewIcon from "../../../assets/view.png";
 import editIcon from "../../../assets/edit.png";
 import deleteIcon from "../../../assets/delete.png";
-import { Link } from "react-router-dom";
 import { useGlobalContext } from "@/context/Context";
 import { formatDate } from "@/lib/utils";
 import { toTitleCase } from "@/lib/utils";
@@ -51,12 +50,7 @@ export const columns = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const {
-        deleteCampaign,
-        editCampaign,
-        handleDeleteClick,
-        openDetailView,
-      } = useGlobalContext();
+      const { handleDeleteClick, openDetailView } = useGlobalContext();
 
       return (
         <div className="flex items-center gap-6">
