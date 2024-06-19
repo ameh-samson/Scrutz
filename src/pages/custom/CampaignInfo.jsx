@@ -243,7 +243,7 @@ const CampaignInfo = () => {
               <FormItem className="flex flex-col mt-8 md:mt-12">
                 <FormLabel className="text-gray">Linked Keywords</FormLabel>
                 <FormControl>
-                  <div className="mt-2">
+                  <div className="mt-2 border rounded border-gray2 p-5">
                     <ReactTags
                       tags={field.value.map((tag) => ({
                         id: tag,
@@ -263,11 +263,11 @@ const CampaignInfo = () => {
                       readOnly={!formEditable}
                       placeholder="To add keywords, type your keyword and press enter"
                       classNames={{
-                        tag: "bg-[#247B7B] text-white rounded  px-3 py-2 mr-3",
+                        tag: "bg-darkCyan text-white rounded py-2 px-3 mr-3",
                         tagInput:
                           "text-gray2 py-3 flex item-center justify-center",
                         tagInputField:
-                          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                          "flex h-10 w-full border-none outline-none bg-background px-3 py-2 text-sm",
                         remove: "ml-2 cursor-pointer text-white",
                       }}
                     />
