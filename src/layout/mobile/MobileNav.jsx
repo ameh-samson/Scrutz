@@ -56,7 +56,7 @@ const MobileNav = () => {
               {navLinks.map((link, index) => (
                 <div
                   key={index}
-                  className={`flex space-x-4 items-center mt-6 px-10 py-2 cursor-pointer rounded-lg duration-500 hover:bg-white ${
+                  className={`flex space-x-4 items-center mt-6 px-6 py-2 cursor-pointer rounded-lg duration-500 hover:bg-white ${
                     activeLink === link.url ? "bg-white text-darkCyan" : ""
                   }`}
                   onClick={() => setActiveLink(link.url)}
