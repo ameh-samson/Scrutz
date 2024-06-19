@@ -72,6 +72,7 @@ export const ContextProvider = ({ children }) => {
     try {
       await api.delete(`/Campaign/${selectedCampaignId}`);
       setConfirmDeleteModal(false);
+      setSelectedCampaign(false);
       setSuccessModal(true);
       fetchData(); // Refresh campaign list
     } catch (error) {
