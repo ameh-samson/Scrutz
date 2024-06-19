@@ -18,6 +18,15 @@ import {
 import { useGlobalContext } from "@/context/Context";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { createTheme, colors, ThemeProvider } from "@mui/material";
+
+const theme = createTheme({
+  palette: {
+    secondary: {
+      main: "#247B7B",
+    },
+  },
+});
 
 export function DataTable({ columns, data }) {
   const table = useReactTable({
@@ -102,14 +111,21 @@ export function DataTable({ columns, data }) {
       {/* Pagination */}
 
       <div className="flex items-center justify-between space-x-2 mt-8">
-        <Stack spacing={2}>
-          <Pagination
-            count={Math.ceil(totalCampaigns / itemsPerPage)}
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-          />
-        </Stack>
+        <ThemeProvider theme={theme}>
+          <Stack spacing={2}>
+            <Pagination
+              count={Math.ceil(totalCampaigns / itemsPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+              color="primary"
+              sx={{
+                "& .Mui-selected": {
+                  bgcolor: theme.palette.secondary.main,
+                },
+              }}
+            />
+          </Stack>
+        </ThemeProvider>
 
         <p className="text-sm font-medium">
           Showing
