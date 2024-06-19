@@ -3,7 +3,7 @@ import Header from "./Header";
 
 const MobileLayout = ({ children }) => {
   return (
-    <div className="lg:flex h-screen overflow-hidden">
+    <div className="lg:hidden h-screen overflow-hidden">
       <div className="w-full">
         <Header />
 
