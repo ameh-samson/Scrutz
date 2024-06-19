@@ -7,8 +7,13 @@ import CampaignDeleteSuccessModal from "@/pages/custom/CampaignDeleteSuccessModa
 import MobileLayout from "./mobile";
 
 const Layout = () => {
-  const { showCampaignSuccessModal, confirmDeleteModal, successModal } =
-    useGlobalContext();
+  const {
+    showCampaignSuccessModal,
+    confirmDeleteModal,
+    successModal,
+    successfullyEditedModal,
+    setShowCampaignSuccessModal,
+  } = useGlobalContext();
 
   return (
     <div className="relative bg-white font-nunito">
@@ -22,7 +27,18 @@ const Layout = () => {
       {showCampaignSuccessModal && (
         <div className="fixed inset-0 bg-[#FFFFFA] bg-opacity-80 flex items-center justify-center z-50">
           <div>
-            <SuccessModal state="created" />
+            <SuccessModal
+              state="created"
+              onClick="setShowCampaignSuccessModal"
+            />
+          </div>
+        </div>
+      )}
+
+      {successfullyEditedModal && (
+        <div className="fixed inset-0 bg-[#FFFFFA] bg-opacity-80 flex items-center justify-center z-50">
+          <div>
+            <SuccessModal state="edited" onClick="successfullyEditedModal" />
           </div>
         </div>
       )}

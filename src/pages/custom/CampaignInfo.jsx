@@ -44,6 +44,7 @@ const CampaignInfo = () => {
     setFormEditable,
     fetchData,
     handleDeleteClick,
+    setSuccessfullyEditedModal,
   } = useGlobalContext();
 
   const form = useForm({
@@ -86,7 +87,7 @@ const CampaignInfo = () => {
 
       const response = await api.put(`/Campaign/${viewCampaignId}`, data); // Change post to put and include the campaign ID in the URL
 
-      setShowCampaignSuccessModal(true);
+      setSuccessfullyEditedModal(true);
       setFormEditable(false);
 
       if (!showCampaignSuccessModal) {

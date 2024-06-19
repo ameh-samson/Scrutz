@@ -14,6 +14,7 @@ export const ContextProvider = ({ children }) => {
   const [campaignDetail, setCampaignDetail] = useState(null);
   const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
+  const [successfullyEditedModal, setSuccessfullyEditedModal] = useState(false);
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
   const [viewCampaignId, setViewCampaignId] = useState(null);
   const [campaignNameToDelete, setCampaignNameToDelete] = useState("");
@@ -105,6 +106,8 @@ export const ContextProvider = ({ children }) => {
     viewCampaignId,
     formEditable,
     setFormEditable,
+    successfullyEditedModal,
+    setSuccessfullyEditedModal,
   };
 
   return (
