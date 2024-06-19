@@ -17,6 +17,7 @@ export const ContextProvider = ({ children }) => {
   const [viewCampaignId, setViewCampaignId] = useState(null);
   const [campaignNameToDelete, setCampaignNameToDelete] = useState("");
   const [selectedCampaign, setSelectedCampaign] = useState(null);
+  const [formEditable, setFormEditable] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -98,6 +99,8 @@ export const ContextProvider = ({ children }) => {
     openDetailView,
     selectedCampaign,
     viewCampaignId,
+    formEditable,
+    setFormEditable,
   };
 
   return (
