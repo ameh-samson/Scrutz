@@ -20,7 +20,7 @@ const Campaign = () => {
         <SectionTitle>All Campaigns</SectionTitle>
       </div>
 
-      <div className="flex items-center justify-between mt-6">
+      <div className="mt-6 md:flex md:items-center md:justify-between gap-3">
         <div className="flex gap-4">
           <span className="p-3 border border-darkCyan rounded text-sm text-darkCyan">
             All({totalCampaigns})
@@ -33,7 +33,7 @@ const Campaign = () => {
           </span>
         </div>
 
-        <div className="flex items-center gap-7">
+        <div className="flex items-center gap-7 mt-4 md:mt-0">
           <div className="relative w-60">
             <Input
               type="text"

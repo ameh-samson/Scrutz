@@ -44,7 +44,7 @@ const MobileNav = () => {
         <SheetContent className="bg-lightGrayish h-screen">
           <SheetHeader className="text-left">
             <SheetTitle>
-              <Link to="/">
+              <Link to="/" onClick={() => setOpen(false)}>
                 <img
                   src={companyLogo}
                   alt="Scrutz"
@@ -56,10 +56,7 @@ const MobileNav = () => {
 
           <Accordion type="single" collapsible className="w-full">
             <div className="mt-[50px]">
-              <Link
-                to="/createNewCampaign"
-                onClick={() => openDetailView(false)}
-              >
+              <Link to="/createNewCampaign" onClick={() => setOpen(false)}>
                 <Button className="w-full">
                   <span>+ New Campaign</span>
                 </Button>
