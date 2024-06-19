@@ -64,11 +64,9 @@ export const columns = [
             <img src={viewIcon} alt="view" className="w-5" />
           </button>
 
-          <Link to={`/campaign/edit/${row.original.id}`}>
-            <button>
-              <img src={editIcon} alt="view" className="w-4" />
-            </button>
-          </Link>
+          <button onClick={() => openDetailView(row.original, row.original.id)}>
+            <img src={editIcon} alt="view" className="w-4" />
+          </button>
 
           <button
             onClick={() =>

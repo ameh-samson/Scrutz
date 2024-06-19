@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useGlobalContext } from "@/context/Context";
+import SectionTitle from "./SectionTitle";
+import { IoMdArrowBack } from "react-icons/io";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { formatDate } from "@/lib/utils";
-import { IoMdArrowBack } from "react-icons/io";
-import SectionTitle from "./SectionTitle";
+import { Input } from "@/components/ui/input";
+import { parseDate } from "@/lib/utils";
+import api from "@/api";
 import {
   Select,
   SelectContent,
@@ -26,12 +30,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { newCampaignFormSchema } from "@/formsValidation";
-import { useGlobalContext } from "@/context/Context";
 
-const UpdateCampaignDetail = ({ id }) => {
-  const { fetchCampaignDetails, campaignDetail, setCampaignDetail } =
-    useGlobalContext();
-  const [isEditable, setIsEditable] = useState(false);
+const CampaignInfo = () => {
+  const {
+    selectedCampaign,
+    openDetailView,
+    fetchCampaignDetails,
+    viewCampaignId,
+    setShowCampaignSuccessModal,
+    showCampaignSuccessModal,
+    formEditable,
+    setFormEditable,
+    fetchData,
+  } = useGlobalContext();
 
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
@@ -48,7 +59,8 @@ const UpdateCampaignDetail = ({ id }) => {
 
   useEffect(() => {
     const getCampaignDetails = async () => {
-      const details = await fetchCampaignDetails(id); // Fetch campaign details by ID
+      const details = await fetchCampaignDetails(viewCampaignId); // Fetch campaign details by ID
+      console.log(details);
       form.reset({
         campaignName: details.campaignName || "",
         campaignDescription: details.campaignDescription || "",
@@ -61,7 +73,7 @@ const UpdateCampaignDetail = ({ id }) => {
     };
 
     getCampaignDetails();
-  }, [id, fetchCampaignDetails, form]);
+  }, [fetchCampaignDetails, form]);
 
   async function onSubmit(data) {
     try {
@@ -69,11 +81,19 @@ const UpdateCampaignDetail = ({ id }) => {
       data.endDate = new Date(parseDate(data.endDate)).toISOString();
       data.linkedKeywords = [data.linkedKeywords];
 
-      const response = await api.put(`/Campaign/${id}`, data); // Change post to put and include the campaign ID in the URL
+      // Include the viewCampaignId in the request body
+      data.id = viewCampaignId;
+
+      const response = await api.put(`/Campaign/${viewCampaignId}`, data); // Change post to put and include the campaign ID in the URL
 
       console.log("Form submitted successfully:", response.data);
       form.reset();
       setShowCampaignSuccessModal(true);
+      setFormEditable(false);
+
+      if (!showCampaignSuccessModal) {
+        openDetailView(false);
+      }
 
       fetchData();
     } catch (error) {
@@ -81,18 +101,15 @@ const UpdateCampaignDetail = ({ id }) => {
     }
   }
 
-  if (!campaignDetail) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       <div>
-        <Link to="/campaign">
-          <button className="flex items-center">
-            <IoMdArrowBack /> Back
-          </button>
-        </Link>
+        <button
+          onClick={() => openDetailView(false)}
+          className="flex items-center"
+        >
+          <IoMdArrowBack /> Back
+        </button>
       </div>
 
       <div className="flex items-center justify-between">
@@ -102,193 +119,175 @@ const UpdateCampaignDetail = ({ id }) => {
           Campaign Status |{" "}
           <span
             className={`${
-              campaignDetail.campaignStatus === "Active"
+              selectedCampaign.campaignStatus === "Active"
                 ? "text-green-600"
-                : campaignDetail.campaignStatus === "Inactive"
+                : selectedCampaign.campaignStatus === "Inactive"
                 ? "text-red"
                 : ""
             }`}
           >
-            {campaignDetail.campaignStatus}
+            {selectedCampaign.campaignStatus}
           </span>
         </span>
       </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <>
-            {/* Campaign Name */}
+      <Form {...form} className="w-full max-w-full overflow-hidden">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {/* Campaign Name */}
+          <FormField
+            control={form.control}
+            name="campaignName"
+            render={({ field }) => (
+              <FormItem className="flex flex-col mt-8 md:mt-12">
+                <FormLabel className="text-gray">Campaign Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="e.g  The Future is now"
+                    {...field}
+                    className="mt-2 px-4 py-3 text-gray2"
+                    readOnly={!formEditable}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Campaign Description */}
+          <FormField
+            control={form.control}
+            name="campaignDescription"
+            render={({ field }) => (
+              <FormItem className="flex flex-col mt-8 md:mt-12">
+                <FormLabel className="text-gray">
+                  Campaign Description
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Please add a description to your campaign"
+                    {...field}
+                    className="mt-2 px-4 py-3 text-gray2"
+                    readOnly={!formEditable}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Start Date */}
             <FormField
               control={form.control}
-              name="campaignName"
+              name="startDate"
               render={({ field }) => (
-                <FormItem>
-                  <div className="mt-8 md:mt-12 flex flex-col">
-                    <FormLabel className="text-gray">Campaign Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g  The Future is now"
-                        {...field}
-                        className="mt-2 px-4 py-3 text-gray2"
-                        readOnly={!isEditable}
-                      />
-                    </FormControl>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Campaign Description */}
-            <FormField
-              control={form.control}
-              name="campaignDescription"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="mt-8 md:mt-12 flex flex-col">
-                    <FormLabel className="text-gray">
-                      Campaign Description
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Please add a description to your campaign"
-                        {...field}
-                        className="mt-2 px-4 py-3 text-gray2"
-                        readOnly={!isEditable}
-                      />
-                    </FormControl>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="grid grid-cols-2 gap-6">
-              {/* Start Date */}
-              <FormField
-                control={form.control}
-                name="startDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="mt-8 md:mt-12 flex flex-col">
-                      <FormLabel className="text-gray">Start Date</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="dd/mm/yyyy"
-                          {...field}
-                          className="mt-2 px-4 py-3 text-gray2"
-                          readOnly={!isEditable}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* End Date */}
-              <FormField
-                control={form.control}
-                name="endDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="mt-8 md:mt-12 flex flex-col ">
-                      <FormLabel className="text-gray">End Date</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="dd/mm/yyyy"
-                          {...field}
-                          className="mt-2 px-4 py-3 text-gray2"
-                          readOnly={!isEditable}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {/* Want to receive daily digest */}
-            <FormField
-              control={form.control}
-              name="digestCampaign"
-              render={({ field }) => (
-                <FormItem className="flex items-center justify-between mt-8 md:mt-12">
-                  <>
-                    <FormLabel className="text-gray">
-                      Want to receive daily digest about the campaign?
-                    </FormLabel>
-                  </>
+                <FormItem className="flex flex-col mt-8 md:mt-12">
+                  <FormLabel className="text-gray">Start Date</FormLabel>
                   <FormControl>
-                    <div className="m-0">
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        readOnly={!isEditable}
-                      />
-                    </div>
+                    <Input
+                      placeholder="dd/mm/yyyy"
+                      {...field}
+                      className="mt-2 px-4 py-3 text-gray2"
+                      readOnly={!formEditable}
+                    />
                   </FormControl>
-                </FormItem>
-              )}
-            />
-
-            {/* Linked Keywords */}
-            <FormField
-              control={form.control}
-              name="linkedKeywords"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="mt-8 md:mt-12 flex flex-col">
-                    <FormLabel className="text-gray">Linked Keywords</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="To add keywords, type your keyword and press enter"
-                        {...field}
-                        className="mt-2 px-4 py-3 text-gray2"
-                        readOnly={!isEditable}
-                      />
-                    </FormControl>
-                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {/* Select how often to receive daily digest */}
+            {/* End Date */}
             <FormField
               control={form.control}
-              name="dailyDigest"
+              name="endDate"
               render={({ field }) => (
-                <FormItem>
-                  <div className="mt-8 md:mt-12">
-                    <FormLabel className="text-gray">
-                      Kindly select how often you want to receive daily digest
-                    </FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue
-                            placeholder="Select"
-                            className="text-gray2"
-                            readOnly={!isEditable}
-                          />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="daily">Daily</SelectItem>
-                        <SelectItem value="weekly">Weekly</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </div>
+                <FormItem className="flex flex-col mt-8 md:mt-12">
+                  <FormLabel className="text-gray">End Date</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="dd/mm/yyyy"
+                      {...field}
+                      className="mt-2 px-4 py-3 text-gray2"
+                      readOnly={!formEditable}
+                    />
+                  </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
-          </>
+          </div>
+
+          {/* Want to receive daily digest */}
+          <FormField
+            control={form.control}
+            name="digestCampaign"
+            render={({ field }) => (
+              <FormItem className="flex items-center justify-between mt-8 md:mt-12">
+                <FormLabel className="text-gray">
+                  Want to receive daily digest about the campaign?
+                </FormLabel>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    disabled={!formEditable}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          {/* Linked Keywords */}
+          <FormField
+            control={form.control}
+            name="linkedKeywords"
+            render={({ field }) => (
+              <FormItem className="flex flex-col mt-8 md:mt-12">
+                <FormLabel className="text-gray">Linked Keywords</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="To add keywords, type your keyword and press enter"
+                    {...field}
+                    className="mt-2 px-4 py-3 text-gray2"
+                    readOnly={!formEditable}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Select how often to receive daily digest */}
+          <FormField
+            control={form.control}
+            name="dailyDigest"
+            render={({ field }) => (
+              <FormItem className="flex flex-col mt-8 md:mt-12">
+                <FormLabel className="text-gray">
+                  Kindly select how often you want to receive daily digest
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        placeholder="Select"
+                        className="text-gray2"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="daily">Daily</SelectItem>
+                    <SelectItem value="weekly">Weekly</SelectItem>
+                    <SelectItem value="monthly">Monthly</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Buttons */}
           <div className="mt-10 md:mt-14 flex items-center gap-3">
@@ -298,15 +297,25 @@ const UpdateCampaignDetail = ({ id }) => {
               </Button>
             </Link>
 
-            <Button
-              type="submit"
-              size="lg"
-              variant="outline"
-              className=" border-darkCyan text-darkCyan"
-              onClick={() => setIsEditable(!isEditable)}
-            >
-              {isEditable ? "Save Information" : "Edit Information"}
-            </Button>
+            {!formEditable ? (
+              <Button
+                onClick={() => setFormEditable(true)}
+                size="lg"
+                variant="outline"
+                className=" border-darkCyan text-darkCyan"
+              >
+                Edit Information
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                size="lg"
+                variant="outline"
+                className=" border-darkCyan text-darkCyan"
+              >
+                Save Information
+              </Button>
+            )}
           </div>
         </form>
       </Form>
@@ -314,4 +323,4 @@ const UpdateCampaignDetail = ({ id }) => {
   );
 };
 
-export default UpdateCampaignDetail;
+export default CampaignInfo;
