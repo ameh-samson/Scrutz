@@ -85,8 +85,6 @@ const CampaignInfo = () => {
       data.id = viewCampaignId;
 
       const response = await api.put(`/Campaign/${viewCampaignId}`, data); // Change post to put and include the campaign ID in the URL
-
-      console.log("Form submitted successfully:", response.data);
       form.reset();
       setShowCampaignSuccessModal(true);
       setFormEditable(false);

@@ -53,7 +53,6 @@ const CreateNewForm = () => {
 
       const response = await api.post("/Campaign", data);
 
-      console.log("Form submitted successfully:", response.data);
       form.reset();
       setShowCampaignSuccessModal(true);
 

@@ -60,7 +60,6 @@ const CampaignInfo = () => {
   useEffect(() => {
     const getCampaignDetails = async () => {
       const details = await fetchCampaignDetails(viewCampaignId); // Fetch campaign details by ID
-      console.log(details);
       form.reset({
         campaignName: details.campaignName || "",
         campaignDescription: details.campaignDescription || "",
@@ -86,7 +85,6 @@ const CampaignInfo = () => {
 
       const response = await api.put(`/Campaign/${viewCampaignId}`, data); // Change post to put and include the campaign ID in the URL
 
-      console.log("Form submitted successfully:", response.data);
       form.reset();
       setShowCampaignSuccessModal(true);
       setFormEditable(false);
