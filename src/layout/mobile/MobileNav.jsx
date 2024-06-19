@@ -1,6 +1,7 @@
 import { useState } from "react";
 import companyLogo from "../../assets/scrutz-logo.png";
 import { Link } from "react-router-dom";
+import { CiMenuBurger } from "react-icons/ci";
 import {
   Accordion,
   AccordionContent,
@@ -35,13 +36,18 @@ const MobileNav = () => {
             className="bg-transparent border-none hover:bg-transparent text-gray-800 p-0 shadow-none"
             variant="outline"
           >
-            <span>Menu</span>
+            {/* menu icon */}
+            <CiMenuBurger className="w-8 h-8" />
           </Button>
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent className="bg-lightGrayish">
           <SheetHeader className="text-left">
             <SheetTitle>
-              <img src={companyLogo} alt="Scrutz" className="cursor-pointer" />
+              <img
+                src={companyLogo}
+                alt="Scrutz"
+                className="cursor-pointer w-40"
+              />
             </SheetTitle>
           </SheetHeader>
 
@@ -61,7 +67,11 @@ const MobileNav = () => {
                     style={activeLink === link.url ? greenFilterStyle : {}}
                   />
 
-                  <Link to={link.url} className="text-sm">
+                  <Link
+                    to={link.url}
+                    className="text-sm"
+                    onClick={() => setOpen(false)}
+                  >
                     {link.title}
                   </Link>
                 </div>
