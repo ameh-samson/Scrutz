@@ -32,7 +32,6 @@ import {
 import { newCampaignFormSchema } from "@/formsValidation";
 
 const CampaignInfo = () => {
-  const { id } = useParams();
   const {
     selectedCampaign,
     openDetailView,
@@ -56,7 +55,6 @@ const CampaignInfo = () => {
 
   useEffect(() => {
     const getCampaignDetails = async () => {
-      console.log(viewCampaignId);
       const details = await fetchCampaignDetails(viewCampaignId); // Fetch campaign details by ID
       console.log(details);
       form.reset({
@@ -71,7 +69,7 @@ const CampaignInfo = () => {
     };
 
     getCampaignDetails();
-  }, [id, fetchCampaignDetails, form]);
+  }, [fetchCampaignDetails, form]);
 
   async function onSubmit(data) {
     try {
