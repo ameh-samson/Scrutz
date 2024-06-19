@@ -29,12 +29,8 @@ const Overview = () => {
         </div>
       </div>
 
-      <div className="mt-8">
-        {campaigns && campaigns.length > 0 ? (
-          <DataTable columns={columns} data={campaigns} />
-        ) : (
-          <NoActivity />
-        )}
+      <div>
+        <NoActivity />
       </div>
     </div>
   );
