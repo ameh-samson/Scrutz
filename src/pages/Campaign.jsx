@@ -57,6 +57,10 @@ const Campaign = () => {
       <div className="mt-8">
         <DataTable columns={columns} data={campaigns} />
       </div>
+
+      <div>
+        <p>showing 10 of {totalCampaigns} results</p>
+      </div>
     </div>
   );
 };

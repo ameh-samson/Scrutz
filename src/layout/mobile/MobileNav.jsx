@@ -1,5 +1,6 @@
 import { useState } from "react";
 import companyLogo from "../../assets/scrutz-logo.png";
+import helpImg from "../../assets/help.png";
 import { Link } from "react-router-dom";
 import { CiMenuBurger } from "react-icons/ci";
 import {
@@ -40,20 +41,30 @@ const MobileNav = () => {
             <CiMenuBurger className="w-8 h-8" />
           </Button>
         </SheetTrigger>
-        <SheetContent className="bg-lightGrayish">
+        <SheetContent className="bg-lightGrayish h-screen">
           <SheetHeader className="text-left">
             <SheetTitle>
-              <Link to="/" className="w-40">
+              <Link to="/">
                 <img
                   src={companyLogo}
                   alt="Scrutz"
-                  className="cursor-pointer"
+                  className="cursor-pointer w-40"
                 />
               </Link>
             </SheetTitle>
           </SheetHeader>
 
           <Accordion type="single" collapsible className="w-full">
+            <div className="mt-[50px]">
+              <Link
+                to="/createNewCampaign"
+                onClick={() => openDetailView(false)}
+              >
+                <Button className="w-full">
+                  <span>+ New Campaign</span>
+                </Button>
+              </Link>
+            </div>
             <nav className="flex flex-col mt-8 lg:hidden">
               {navLinks.map((link, index) => (
                 <div
@@ -79,6 +90,25 @@ const MobileNav = () => {
                 </div>
               ))}
             </nav>
+
+            <div className="bg-white rounded  mt-6 py-8 px-8 flex flex-col justify-center items-center text-center">
+              <img src={helpImg} className="w-6 h-6" />
+              <div className="mt-1 mb-4">
+                <span className="text-sm">Need help?</span>
+                <p className="text-xs text-gray mt-1">
+                  We’re readily available to provide help
+                </p>
+              </div>
+
+              <Link to="/support">
+                <Button
+                  variant="outline"
+                  className="border-darkCyan text-darkCyan hover:bg-darkCyan hover:text-white"
+                >
+                  Get Help
+                </Button>
+              </Link>
+            </div>
           </Accordion>
         </SheetContent>
       </Sheet>
