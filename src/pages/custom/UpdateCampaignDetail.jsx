@@ -29,7 +29,7 @@ import {
 import { newCampaignFormSchema } from "@/formsValidation";
 import { useGlobalContext } from "@/context/Context";
 
-const CampaignInfo = () => {
+const UpdateCampaignDetail = () => {
   const { id } = useParams();
   const { fetchCampaignDetails, campaignDetail, setCampaignDetail } =
     useGlobalContext();
@@ -315,4 +315,4 @@ const CampaignInfo = () => {
   );
 };
 
-export default CampaignInfo;
+export default UpdateCampaignDetail;
