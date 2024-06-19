@@ -24,7 +24,7 @@ import { useGlobalContext } from "@/context/Context";
 const MobileNav = () => {
   const [open, setOpen] = useState(false);
 
-  const { activeLink, setActiveLink } = useGlobalContext();
+  const { activeLink, setActiveLink, openDetailView } = useGlobalContext();
 
   const greenFilterStyle = {
     filter: "brightness(0.75) sepia(1) hue-rotate(170deg) saturate(5)",
