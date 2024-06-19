@@ -41,6 +41,7 @@ const CampaignInfo = () => {
     showCampaignSuccessModal,
     formEditable,
     setFormEditable,
+    fetchData,
   } = useGlobalContext();
 
   const form = useForm({
@@ -88,6 +89,7 @@ const CampaignInfo = () => {
       console.log("Form submitted successfully:", response.data);
       form.reset();
       setShowCampaignSuccessModal(true);
+      setFormEditable(false);
 
       if (!showCampaignSuccessModal) {
         openDetailView(false);
@@ -143,6 +145,7 @@ const CampaignInfo = () => {
                     placeholder="e.g  The Future is now"
                     {...field}
                     className="mt-2 px-4 py-3 text-gray2"
+                    readOnly={!formEditable}
                   />
                 </FormControl>
                 <FormMessage />
@@ -164,6 +167,7 @@ const CampaignInfo = () => {
                     placeholder="Please add a description to your campaign"
                     {...field}
                     className="mt-2 px-4 py-3 text-gray2"
+                    readOnly={!formEditable}
                   />
                 </FormControl>
                 <FormMessage />
@@ -184,6 +188,7 @@ const CampaignInfo = () => {
                       placeholder="dd/mm/yyyy"
                       {...field}
                       className="mt-2 px-4 py-3 text-gray2"
+                      readOnly={!formEditable}
                     />
                   </FormControl>
                   <FormMessage />
@@ -203,6 +208,7 @@ const CampaignInfo = () => {
                       placeholder="dd/mm/yyyy"
                       {...field}
                       className="mt-2 px-4 py-3 text-gray2"
+                      readOnly={!formEditable}
                     />
                   </FormControl>
                   <FormMessage />
@@ -224,6 +230,7 @@ const CampaignInfo = () => {
                   <Switch
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    disabled={!formEditable}
                   />
                 </FormControl>
               </FormItem>
@@ -242,6 +249,7 @@ const CampaignInfo = () => {
                     placeholder="To add keywords, type your keyword and press enter"
                     {...field}
                     className="mt-2 px-4 py-3 text-gray2"
+                    readOnly={!formEditable}
                   />
                 </FormControl>
                 <FormMessage />
