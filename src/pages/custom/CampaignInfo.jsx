@@ -11,6 +11,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { formatDate } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { parseDate } from "@/lib/utils";
+import api from "@/api";
 import {
   Select,
   SelectContent,
@@ -31,8 +33,13 @@ import { newCampaignFormSchema } from "@/formsValidation";
 
 const CampaignInfo = () => {
   const { id } = useParams();
-  const { selectedCampaign, openDetailView, fetchCampaignDetails } =
-    useGlobalContext();
+  const {
+    selectedCampaign,
+    openDetailView,
+    fetchCampaignDetails,
+    viewCampaignId,
+    setShowCampaignSuccessModal,
+  } = useGlobalContext();
 
   const form = useForm({
     resolver: zodResolver(newCampaignFormSchema),
@@ -49,7 +56,9 @@ const CampaignInfo = () => {
 
   useEffect(() => {
     const getCampaignDetails = async () => {
-      const details = selectedCampaign; // Fetch campaign details by ID
+      console.log(viewCampaignId);
+      const details = await fetchCampaignDetails(viewCampaignId); // Fetch campaign details by ID
+      console.log(details);
       form.reset({
         campaignName: details.campaignName || "",
         campaignDescription: details.campaignDescription || "",
@@ -70,7 +79,10 @@ const CampaignInfo = () => {
       data.endDate = new Date(parseDate(data.endDate)).toISOString();
       data.linkedKeywords = [data.linkedKeywords];
 
-      const response = await api.put(`/Campaign/${id}`, data); // Change post to put and include the campaign ID in the URL
+      // Include the viewCampaignId in the request body
+      data.id = viewCampaignId;
+
+      const response = await api.put(`/Campaign/${viewCampaignId}`, data); // Change post to put and include the campaign ID in the URL
 
       console.log("Form submitted successfully:", response.data);
       form.reset();
@@ -128,7 +140,6 @@ const CampaignInfo = () => {
                         placeholder="e.g  The Future is now"
                         {...field}
                         className="mt-2 px-4 py-3 text-gray2"
-                        readOnly
                       />
                     </FormControl>
                   </div>
@@ -152,7 +163,6 @@ const CampaignInfo = () => {
                         placeholder="Please add a description to your campaign"
                         {...field}
                         className="mt-2 px-4 py-3 text-gray2"
-                        readOnly
                       />
                     </FormControl>
                   </div>
@@ -175,7 +185,6 @@ const CampaignInfo = () => {
                           placeholder="dd/mm/yyyy"
                           {...field}
                           className="mt-2 px-4 py-3 text-gray2"
-                          readOnly
                         />
                       </FormControl>
                     </div>
@@ -197,7 +206,6 @@ const CampaignInfo = () => {
                           placeholder="dd/mm/yyyy"
                           {...field}
                           className="mt-2 px-4 py-3 text-gray2"
-                          readOnly
                         />
                       </FormControl>
                     </div>
@@ -223,7 +231,6 @@ const CampaignInfo = () => {
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        readOnly
                       />
                     </div>
                   </FormControl>
@@ -244,7 +251,6 @@ const CampaignInfo = () => {
                         placeholder="To add keywords, type your keyword and press enter"
                         {...field}
                         className="mt-2 px-4 py-3 text-gray2"
-                        readOnly
                       />
                     </FormControl>
                   </div>
@@ -272,7 +278,6 @@ const CampaignInfo = () => {
                           <SelectValue
                             placeholder="Select"
                             className="text-gray2"
-                            readOnly
                           />
                         </SelectTrigger>
                       </FormControl>

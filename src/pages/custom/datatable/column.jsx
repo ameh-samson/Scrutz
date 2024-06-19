@@ -60,7 +60,7 @@ export const columns = [
 
       return (
         <div className="flex items-center gap-6">
-          <button onClick={() => openDetailView(row.original)}>
+          <button onClick={() => openDetailView(row.original, row.original.id)}>
             <img src={viewIcon} alt="view" className="w-5" />
           </button>
 

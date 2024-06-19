@@ -14,6 +14,7 @@ export const ContextProvider = ({ children }) => {
   const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
+  const [viewCampaignId, setViewCampaignId] = useState(null);
   const [campaignNameToDelete, setCampaignNameToDelete] = useState("");
   const [selectedCampaign, setSelectedCampaign] = useState(null);
 
@@ -43,8 +44,9 @@ export const ContextProvider = ({ children }) => {
   }, []);
 
   // open the detailed campaign
-  const openDetailView = (campaign) => {
+  const openDetailView = (campaign, campaignId) => {
     setSelectedCampaign(campaign);
+    setViewCampaignId(campaignId);
   };
 
   // Function to fetch campaign details by ID
@@ -95,6 +97,7 @@ export const ContextProvider = ({ children }) => {
     campaignNameToDelete,
     openDetailView,
     selectedCampaign,
+    viewCampaignId,
   };
 
   return (
