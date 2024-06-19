@@ -42,6 +42,7 @@ const CampaignInfo = () => {
     formEditable,
     setFormEditable,
     fetchData,
+    handleDeleteClick,
   } = useGlobalContext();
 
   const form = useForm({
@@ -296,11 +297,20 @@ const CampaignInfo = () => {
 
           {/* Buttons */}
           <div className="mt-10 md:mt-14 flex items-center gap-3">
-            <Link>
-              <Button size="lg" className="bg-red hover:bg-red/90">
+            <span>
+              <Button
+                onClick={() =>
+                  handleDeleteClick(
+                    viewCampaignId,
+                    selectedCampaign.campaignName
+                  )
+                }
+                size="lg"
+                className="bg-red hover:bg-red/90"
+              >
                 Stop Campaign
               </Button>
-            </Link>
+            </span>
 
             {!formEditable ? (
               <Button

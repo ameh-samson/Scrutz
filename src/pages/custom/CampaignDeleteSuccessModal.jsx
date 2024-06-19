@@ -11,14 +11,15 @@ const CampaignDeleteSuccessModal = () => {
       <p className="text-sm text-gray">
         {campaignNameToDelete} campaign has been deleted
       </p>
-
-      <Button
-        onClick={() => setSuccessModal(false)}
-        size="lg"
-        className="mt-12 border-darkCyan text-white hover:bg-darkCyan/90"
-      >
-        Go Back to campaign list
-      </Button>
+      <Link to="/campaign">
+        <Button
+          onClick={() => setSuccessModal(false)}
+          size="lg"
+          className="mt-12 border-darkCyan text-white hover:bg-darkCyan/90"
+        >
+          Go Back to campaign list
+        </Button>
+      </Link>
     </div>
   );
 };
