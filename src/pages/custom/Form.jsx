@@ -64,8 +64,8 @@ const CreateNewForm = () => {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+    <Form {...form} className="w-full overflow-hidden">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <>
           {/* Campaign Name */}
           <FormField
@@ -73,7 +73,7 @@ const CreateNewForm = () => {
             name="campaignName"
             render={({ field }) => (
               <FormItem>
-                <div className="mt-8 md:mt-12 flex flex-col">
+                <div className="mt-8 md:mt-12 flex flex-col space-y-4">
                   <FormLabel className="text-gray">Campaign Name</FormLabel>
                   <FormControl>
                     <Input
@@ -94,7 +94,7 @@ const CreateNewForm = () => {
             name="campaignDescription"
             render={({ field }) => (
               <FormItem>
-                <div className="mt-8 md:mt-12 flex flex-col">
+                <div className="mt-8 md:mt-12 flex flex-col space-y-4">
                   <FormLabel className="text-gray">
                     Campaign Description
                   </FormLabel>
@@ -111,14 +111,14 @@ const CreateNewForm = () => {
             )}
           />
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Start Date */}
             <FormField
               control={form.control}
               name="startDate"
               render={({ field }) => (
                 <FormItem>
-                  <div className="mt-8 md:mt-12 flex flex-col">
+                  <div className="mt-8 md:mt-12 flex flex-col space-y-4">
                     <FormLabel className="text-gray">Start Date</FormLabel>
                     <FormControl>
                       <Input
@@ -139,7 +139,7 @@ const CreateNewForm = () => {
               name="endDate"
               render={({ field }) => (
                 <FormItem>
-                  <div className="mt-8 md:mt-12 flex flex-col ">
+                  <div className="mt-8 md:mt-12 flex flex-col space-y-4">
                     <FormLabel className="text-gray">End Date</FormLabel>
                     <FormControl>
                       <Input
@@ -184,7 +184,7 @@ const CreateNewForm = () => {
             name="linkedKeywords"
             render={({ field }) => (
               <FormItem>
-                <div className="mt-8 md:mt-12 flex flex-col">
+                <div className="mt-8 md:mt-12 flex flex-col space-y-4">
                   <FormLabel className="text-gray">Linked Keywords</FormLabel>
                   <FormControl>
                     <Textarea
@@ -205,7 +205,7 @@ const CreateNewForm = () => {
             name="dailyDigest"
             render={({ field }) => (
               <FormItem>
-                <div className="mt-8 md:mt-12">
+                <div className="mt-8 md:mt-12 space-y-4">
                   <FormLabel className="text-gray">
                     Kindly select how often you want to receive daily digest
                   </FormLabel>
