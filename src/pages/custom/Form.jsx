@@ -64,175 +64,149 @@ const CreateNewForm = () => {
   }
 
   return (
-    <Form {...form} className="w-full overflow-hidden">
+    <Form {...form} className="w-full max-w-full overflow-hidden">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <>
-          {/* Campaign Name */}
+        {/* Campaign Name */}
+        <FormField
+          control={form.control}
+          name="campaignName"
+          render={({ field }) => (
+            <FormItem className="flex flex-col mt-8 md:mt-12">
+              <FormLabel className="text-gray">Campaign Name</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="e.g  The Future is now"
+                  {...field}
+                  className="mt-2 px-4 py-3 text-gray2"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Campaign Description */}
+        <FormField
+          control={form.control}
+          name="campaignDescription"
+          render={({ field }) => (
+            <FormItem className="flex flex-col mt-8 md:mt-12">
+              <FormLabel className="text-gray">Campaign Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Please add a description to your campaign"
+                  {...field}
+                  className="mt-2 px-4 py-3 text-gray2"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Start Date */}
           <FormField
             control={form.control}
-            name="campaignName"
+            name="startDate"
             render={({ field }) => (
-              <FormItem>
-                <div className="mt-8 md:mt-12 flex flex-col space-y-4">
-                  <FormLabel className="text-gray">Campaign Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="e.g  The Future is now"
-                      {...field}
-                      className="mt-2 px-4 py-3 text-gray2"
-                    />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Campaign Description */}
-          <FormField
-            control={form.control}
-            name="campaignDescription"
-            render={({ field }) => (
-              <FormItem>
-                <div className="mt-8 md:mt-12 flex flex-col space-y-4">
-                  <FormLabel className="text-gray">
-                    Campaign Description
-                  </FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Please add a description to your campaign"
-                      {...field}
-                      className="mt-2 px-4 py-3 text-gray2"
-                    />
-                  </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Start Date */}
-            <FormField
-              control={form.control}
-              name="startDate"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="mt-8 md:mt-12 flex flex-col space-y-4">
-                    <FormLabel className="text-gray">Start Date</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="dd/mm/yyyy"
-                        {...field}
-                        className="mt-2 px-4 py-3 text-gray2"
-                      />
-                    </FormControl>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* End Date */}
-            <FormField
-              control={form.control}
-              name="endDate"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="mt-8 md:mt-12 flex flex-col space-y-4">
-                    <FormLabel className="text-gray">End Date</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="dd/mm/yyyy"
-                        {...field}
-                        className="mt-2 px-4 py-3 text-gray2"
-                      />
-                    </FormControl>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          {/* Want to receive daily digest */}
-          <FormField
-            control={form.control}
-            name="digestCampaign"
-            render={({ field }) => (
-              <FormItem className="flex items-center justify-between mt-8 md:mt-12">
-                <>
-                  <FormLabel className="text-gray">
-                    Want to receive daily digest about the campaign?
-                  </FormLabel>
-                </>
+              <FormItem className="flex flex-col mt-8 md:mt-12">
+                <FormLabel className="text-gray">Start Date</FormLabel>
                 <FormControl>
-                  <div className="m-0">
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </div>
+                  <Input
+                    placeholder="dd/mm/yyyy"
+                    {...field}
+                    className="mt-2 px-4 py-3 text-gray2"
+                  />
                 </FormControl>
-              </FormItem>
-            )}
-          />
-
-          {/* Linked Keywords */}
-          <FormField
-            control={form.control}
-            name="linkedKeywords"
-            render={({ field }) => (
-              <FormItem>
-                <div className="mt-8 md:mt-12 flex flex-col space-y-4">
-                  <FormLabel className="text-gray">Linked Keywords</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="To add keywords, type your keyword and press enter"
-                      {...field}
-                      className="mt-2 px-4 py-3 text-gray2"
-                    />
-                  </FormControl>
-                </div>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* Select how often to receive daily digest */}
+          {/* End Date */}
           <FormField
             control={form.control}
-            name="dailyDigest"
+            name="endDate"
             render={({ field }) => (
-              <FormItem>
-                <div className="mt-8 md:mt-12 space-y-4">
-                  <FormLabel className="text-gray">
-                    Kindly select how often you want to receive daily digest
-                  </FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          placeholder="Select"
-                          className="text-gray2"
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="daily">Daily</SelectItem>
-                      <SelectItem value="weekly">Weekly</SelectItem>
-                      <SelectItem value="monthly">Monthly</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </div>
+              <FormItem className="flex flex-col mt-8 md:mt-12">
+                <FormLabel className="text-gray">End Date</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="dd/mm/yyyy"
+                    {...field}
+                    className="mt-2 px-4 py-3 text-gray2"
+                  />
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
-        </>
+        </div>
+
+        {/* Want to receive daily digest */}
+        <FormField
+          control={form.control}
+          name="digestCampaign"
+          render={({ field }) => (
+            <FormItem className="flex items-center justify-between mt-8 md:mt-12">
+              <FormLabel className="text-gray">
+                Want to receive daily digest about the campaign?
+              </FormLabel>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        {/* Linked Keywords */}
+        <FormField
+          control={form.control}
+          name="linkedKeywords"
+          render={({ field }) => (
+            <FormItem className="flex flex-col mt-8 md:mt-12">
+              <FormLabel className="text-gray">Linked Keywords</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="To add keywords, type your keyword and press enter"
+                  {...field}
+                  className="mt-2 px-4 py-3 text-gray2"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Select how often to receive daily digest */}
+        <FormField
+          control={form.control}
+          name="dailyDigest"
+          render={({ field }) => (
+            <FormItem className="flex flex-col mt-8 md:mt-12">
+              <FormLabel className="text-gray">
+                Kindly select how often you want to receive daily digest
+              </FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select" className="text-gray2" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="daily">Daily</SelectItem>
+                  <SelectItem value="weekly">Weekly</SelectItem>
+                  <SelectItem value="monthly">Monthly</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {/* Buttons */}
         <div className="mt-10 md:mt-14 flex items-center gap-3">
