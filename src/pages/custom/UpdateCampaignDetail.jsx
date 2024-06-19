@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -29,8 +28,7 @@ import {
 import { newCampaignFormSchema } from "@/formsValidation";
 import { useGlobalContext } from "@/context/Context";
 
-const UpdateCampaignDetail = () => {
-  const { id } = useParams();
+const UpdateCampaignDetail = ({ id }) => {
   const { fetchCampaignDetails, campaignDetail, setCampaignDetail } =
     useGlobalContext();
   const [isEditable, setIsEditable] = useState(false);
@@ -305,6 +303,7 @@ const UpdateCampaignDetail = () => {
               size="lg"
               variant="outline"
               className=" border-darkCyan text-darkCyan"
+              onClick={() => setIsEditable(!isEditable)}
             >
               {isEditable ? "Save Information" : "Edit Information"}
             </Button>
