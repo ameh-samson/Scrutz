@@ -1,9 +1,8 @@
 import { Outlet } from "react-router-dom";
 import DesktopLayout from "./desktop";
 import { useGlobalContext } from "@/context/Context";
-import CampaignSuccessful from "@/pages/custom/CampaignSuccessful";
 import ConfirmDelete from "@/pages/custom/ConfirmDelete";
-import CampaignDeleteSuccessModal from "@/pages/custom/CampaignDeleteSuccessModal";
+import SuccessModal from "@/pages/custom/SuccessModal";
 
 const Layout = () => {
   const { showCampaignSuccessModal, confirmDeleteModal, successModal } =
@@ -17,7 +16,7 @@ const Layout = () => {
       {showCampaignSuccessModal && (
         <div className="fixed inset-0 bg-[#FFFFFA] bg-opacity-80 flex items-center justify-center z-50">
           <div>
-            <CampaignSuccessful />
+            <SuccessModal state="created" />
           </div>
         </div>
       )}
@@ -33,7 +32,7 @@ const Layout = () => {
       {successModal && (
         <div className="fixed inset-0 bg-[#FFFFFA] bg-opacity-80 flex items-center justify-center z-50">
           <div>
-            <CampaignDeleteSuccessModal />
+            <SuccessModal state="edited" />
           </div>
         </div>
       )}

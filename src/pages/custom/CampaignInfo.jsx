@@ -38,6 +38,7 @@ const CampaignInfo = () => {
     fetchCampaignDetails,
     viewCampaignId,
     setShowCampaignSuccessModal,
+    showCampaignSuccessModal,
   } = useGlobalContext();
 
   const form = useForm({
@@ -85,6 +86,10 @@ const CampaignInfo = () => {
       console.log("Form submitted successfully:", response.data);
       form.reset();
       setShowCampaignSuccessModal(true);
+
+      if (!showCampaignSuccessModal) {
+        openDetailView(false);
+      }
 
       fetchData();
     } catch (error) {
