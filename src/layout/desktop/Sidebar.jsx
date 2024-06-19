@@ -8,6 +8,7 @@ import { useGlobalContext } from "@/context/Context";
 
 const DesktopSidebar = () => {
   const [activeLink, setActiveLink] = useState(location.pathname);
+  const { openDetailView } = useGlobalContext();
 
   return (
     <div className="w-[400px] h-screen py-6 px-8 flex flex-col justify-between bg-lightGrayish text-[#455454] overflow-y-scroll">
@@ -19,14 +20,14 @@ const DesktopSidebar = () => {
         </div>
 
         <div className="mt-[70px]">
-          <Link to="/createNewCampaign">
+          <Link to="/createNewCampaign" onClick={() => openDetailView(false)}>
             <Button className="w-full">
               <span>+ New Campaign</span>
             </Button>
           </Link>
         </div>
         <div>
-          <span>
+          <span onClick={() => openDetailView(false)}>
             <RenderLinks
               data={navLinks}
               activeLink={activeLink}
