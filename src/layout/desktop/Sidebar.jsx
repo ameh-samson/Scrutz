@@ -38,7 +38,9 @@ const DesktopSidebar = () => {
         <div className="bg-white rounded  mt-6 py-8 px-8 flex flex-col justify-center items-center text-center">
           <img src={helpImg} className="w-6 h-6" />
           <div className="mt-1 mb-4">
-            <span className="text-sm">Need help?</span>
+            <span className="text-sm font-semibold gradient-text">
+              Need help?
+            </span>
             <p className="text-xs text-gray mt-1">
               We’re readily available to provide help
             </p>
