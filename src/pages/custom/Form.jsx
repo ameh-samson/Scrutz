@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,12 +15,12 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { WithContext as ReactTags } from "react-tag-input";
 
 import { newCampaignFormSchema } from "@/formsValidation";
 import api from "@/api";
@@ -38,7 +38,7 @@ const CreateNewForm = () => {
       startDate: "",
       endDate: "",
       digestCampaign: false,
-      linkedKeywords: "",
+      linkedKeywords: [], // Array to store tags
       dailyDigest: "",
     },
   });
@@ -48,8 +48,6 @@ const CreateNewForm = () => {
     try {
       data.startDate = new Date(parseDate(data.startDate)).toISOString();
       data.endDate = new Date(parseDate(data.endDate)).toISOString();
-
-      data.linkedKeywords = [data.linkedKeywords];
 
       const response = await api.post("/Campaign", data);
 
@@ -173,11 +171,32 @@ const CreateNewForm = () => {
             <FormItem className="flex flex-col mt-8 md:mt-12">
               <FormLabel className="text-gray">Linked Keywords</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="To add keywords, type your keyword and press enter"
-                  {...field}
-                  className="mt-2 px-4 py-3 text-gray2"
-                />
+                <div className="mt-2">
+                  <ReactTags
+                    tags={field.value.map((tag) => ({
+                      id: tag,
+                      text: tag,
+                    }))}
+                    handleDelete={(i) => {
+                      const updatedTags = field.value.filter(
+                        (tag, index) => index !== i
+                      );
+                      field.onChange(updatedTags);
+                    }}
+                    handleAddition={(tag) => {
+                      const updatedTags = [...field.value, tag.text];
+                      field.onChange(updatedTags);
+                    }}
+                    inputFieldPosition="inline"
+                    placeholder="To add keywords, type your keyword and press enter"
+                    classNames={{
+                      tag: "bg-[#247B7B] text-white rounded px-2 py-1 mr-2",
+                      tagInput: "text-gray2 py-3",
+                      tagInputField:
+                        "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                    }}
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -200,13 +219,11 @@ const CreateNewForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {["Daily", "Weekly", "Monthly"].map((howOften) => {
-                    return (
-                      <SelectItem value={howOften} key={howOften}>
-                        {howOften}
-                      </SelectItem>
-                    );
-                  })}
+                  {["Daily", "Weekly", "Monthly"].map((howOften) => (
+                    <SelectItem value={howOften} key={howOften}>
+                      {howOften}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

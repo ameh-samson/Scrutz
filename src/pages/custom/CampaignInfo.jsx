@@ -13,6 +13,7 @@ import { formatDate } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { parseDate } from "@/lib/utils";
 import api from "@/api";
+import { WithContext as ReactTags } from "react-tag-input";
 import {
   Select,
   SelectContent,
@@ -53,7 +54,7 @@ const CampaignInfo = () => {
       startDate: "",
       endDate: "",
       digestCampaign: false,
-      linkedKeywords: "",
+      linkedKeywords: [],
       dailyDigest: "",
     },
   });
@@ -67,7 +68,7 @@ const CampaignInfo = () => {
         startDate: formatDate(details.startDate) || "",
         endDate: formatDate(details.endDate) || "",
         digestCampaign: details.digestCampaign || false,
-        linkedKeywords: details.linkedKeywords || "",
+        linkedKeywords: details.linkedKeywords || [],
         dailyDigest: details.dailyDigest || "",
       });
     };
@@ -79,7 +80,6 @@ const CampaignInfo = () => {
     try {
       data.startDate = new Date(parseDate(data.startDate)).toISOString();
       data.endDate = new Date(parseDate(data.endDate)).toISOString();
-      data.linkedKeywords = [data.linkedKeywords];
 
       // Include the viewCampaignId in the request body
       data.id = viewCampaignId;
@@ -147,14 +147,12 @@ const CampaignInfo = () => {
                     placeholder="e.g  The Future is now"
                     {...field}
                     className="mt-2 px-4 py-3 text-gray2"
-                    readOnly={!formEditable}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           {/* Campaign Description */}
           <FormField
             control={form.control}
@@ -169,14 +167,12 @@ const CampaignInfo = () => {
                     placeholder="Please add a description to your campaign"
                     {...field}
                     className="mt-2 px-4 py-3 text-gray2"
-                    readOnly={!formEditable}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Start Date */}
             <FormField
@@ -190,7 +186,6 @@ const CampaignInfo = () => {
                       placeholder="dd/mm/yyyy"
                       {...field}
                       className="mt-2 px-4 py-3 text-gray2"
-                      readOnly={!formEditable}
                     />
                   </FormControl>
                   <FormMessage />
@@ -210,7 +205,6 @@ const CampaignInfo = () => {
                       placeholder="dd/mm/yyyy"
                       {...field}
                       className="mt-2 px-4 py-3 text-gray2"
-                      readOnly={!formEditable}
                     />
                   </FormControl>
                   <FormMessage />
@@ -218,7 +212,6 @@ const CampaignInfo = () => {
               )}
             />
           </div>
-
           {/* Want to receive daily digest */}
           <FormField
             control={form.control}
@@ -232,13 +225,11 @@ const CampaignInfo = () => {
                   <Switch
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    disabled={!formEditable}
                   />
                 </FormControl>
               </FormItem>
             )}
           />
-
           {/* Linked Keywords */}
           <FormField
             control={form.control}
@@ -247,18 +238,37 @@ const CampaignInfo = () => {
               <FormItem className="flex flex-col mt-8 md:mt-12">
                 <FormLabel className="text-gray">Linked Keywords</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder="To add keywords, type your keyword and press enter"
-                    {...field}
-                    className="mt-2 px-4 py-3 text-gray2"
-                    readOnly={!formEditable}
-                  />
+                  <div className="mt-2">
+                    <ReactTags
+                      tags={field.value.map((tag) => ({
+                        id: tag,
+                        text: tag,
+                      }))}
+                      handleDelete={(i) => {
+                        const updatedTags = field.value.filter(
+                          (tag, index) => index !== i
+                        );
+                        field.onChange(updatedTags);
+                      }}
+                      handleAddition={(tag) => {
+                        const updatedTags = [...field.value, tag.text];
+                        field.onChange(updatedTags);
+                      }}
+                      inputFieldPosition="inline"
+                      placeholder="To add keywords, type your keyword and press enter"
+                      classNames={{
+                        tag: "bg-[#247B7B] text-white rounded px-2 py-1 mr-2",
+                        tagInput: "text-gray2 py-3",
+                        tagInputField:
+                          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                      }}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           {/* Select how often to receive daily digest */}
           <FormField
             control={form.control}
@@ -281,20 +291,17 @@ const CampaignInfo = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {["Daily", "Weekly", "Monthly"].map((howOften) => {
-                      return (
-                        <SelectItem value={howOften} key={howOften}>
-                          {howOften}
-                        </SelectItem>
-                      );
-                    })}
+                    {["Daily", "Weekly", "Monthly"].map((howOften) => (
+                      <SelectItem value={howOften} key={howOften}>
+                        {howOften}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           {/* Buttons */}
           <div className="mt-10 md:mt-14 flex items-center gap-3">
             <Link>
@@ -332,6 +339,7 @@ const CampaignInfo = () => {
               </Button>
             )}
           </div>
+          ;
         </form>
       </Form>
     </div>
