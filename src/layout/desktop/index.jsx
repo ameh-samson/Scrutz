@@ -8,7 +8,7 @@ const index = ({ children }) => {
   const { newCampaign, selectedCampaign } = useGlobalContext();
 
   return (
-    <div className="lg:flex h-screen overflow-hidden">
+    <div className="hidden lg:flex h-screen overflow-hidden">
       <DesktopSidebar />
       <div className="w-full">
         <Header />
