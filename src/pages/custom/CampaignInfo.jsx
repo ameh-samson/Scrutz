@@ -106,13 +106,13 @@ const CampaignInfo = () => {
       <div>
         <button
           onClick={() => openDetailView(false)}
-          className="flex items-center"
+          className="flex items-center text-base font-semibold"
         >
           <IoMdArrowBack /> Back
         </button>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-6">
         <SectionTitle>Campaign Information</SectionTitle>
 
         <span className="block rounded bg-lightGrayish2 py-2 px-4">
