@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -14,7 +15,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Button } from "@/components/ui/button";
+import { useGlobalContext } from "@/context/Context";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 export function DataTable({ columns, data }) {
   const table = useReactTable({
@@ -23,6 +26,25 @@ export function DataTable({ columns, data }) {
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const {
+    campaigns,
+    totalCampaigns,
+    totalInactiveCampaigns,
+    totalActiveCampaigns,
+  } = useGlobalContext();
+
+  // Calculate the items to display on the current page
+  const offset = (currentPage - 1) * itemsPerPage;
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+    // Synchronize with the table pagination
+    table.setPageIndex(value - 1);
+  };
 
   return (
     <div>
@@ -78,23 +100,24 @@ export function DataTable({ columns, data }) {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+
+      <div className="flex items-center justify-between space-x-2 mt-8">
+        <Stack spacing={2}>
+          <Pagination
+            count={Math.ceil(totalCampaigns / itemsPerPage)}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+          />
+        </Stack>
+
+        <p className="text-sm font-medium">
+          Showing
+          <span className="ml-1">
+            {Math.min(offset + itemsPerPage, totalCampaigns)}
+          </span>{" "}
+          of {totalCampaigns} results
+        </p>
       </div>
     </div>
   );

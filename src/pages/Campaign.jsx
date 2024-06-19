@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SectionTitle from "./custom/SectionTitle";
 import { IoIosSearch } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa";
@@ -56,10 +57,6 @@ const Campaign = () => {
 
       <div className="mt-8">
         <DataTable columns={columns} data={campaigns} />
-      </div>
-
-      <div>
-        <p>showing 10 of {totalCampaigns} results</p>
       </div>
     </div>
   );
