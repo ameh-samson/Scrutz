@@ -131,8 +131,11 @@ const CampaignInfo = () => {
         </span>
       </div>
 
-      <Form {...form} className="w-full max-w-full overflow-hidden">
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="relative space-y-8 overflow-x-hidden"
+        >
           {/* Campaign Name */}
           <FormField
             control={form.control}
@@ -279,9 +282,13 @@ const CampaignInfo = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="daily">Daily</SelectItem>
-                    <SelectItem value="weekly">Weekly</SelectItem>
-                    <SelectItem value="monthly">Monthly</SelectItem>
+                    {["Daily", "Weekly", "Monthly"].map((howOften) => {
+                      return (
+                        <SelectItem value={howOften} key={howOften}>
+                          {howOften}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
                 <FormMessage />

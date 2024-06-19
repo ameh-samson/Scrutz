@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 import {
   DropdownMenu,
@@ -29,9 +29,9 @@ const UserProfile = () => {
         <img src={profileIcon} className="h-6 w-6" />
       </div>
 
-      <Select className="hidden lg:flex flex-col items-start text-sm  border-none">
+      <Select className="hidden lg:flex flex-col items-start text-sm  border-none relative overflow-x-hidden">
         <SelectTrigger className="text-darkGray border-none">
-          <SelectValue placeholder="Big Tech"  />
+          <SelectValue placeholder="Big Tech" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="logout">Logout</SelectItem>
