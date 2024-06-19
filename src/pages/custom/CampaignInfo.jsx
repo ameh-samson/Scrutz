@@ -74,7 +74,7 @@ const CampaignInfo = () => {
     };
 
     getCampaignDetails();
-  }, [fetchCampaignDetails, form]);
+  }, [fetchCampaignDetails, form, viewCampaignId]);
 
   async function onSubmit(data) {
     try {
@@ -86,7 +86,6 @@ const CampaignInfo = () => {
 
       const response = await api.put(`/Campaign/${viewCampaignId}`, data); // Change post to put and include the campaign ID in the URL
 
-      form.reset();
       setShowCampaignSuccessModal(true);
       setFormEditable(false);
 
@@ -147,6 +146,7 @@ const CampaignInfo = () => {
                     placeholder="e.g  The Future is now"
                     {...field}
                     className="mt-2 px-4 py-3 text-gray2"
+                    readOnly={!formEditable}
                   />
                 </FormControl>
                 <FormMessage />
@@ -167,6 +167,7 @@ const CampaignInfo = () => {
                     placeholder="Please add a description to your campaign"
                     {...field}
                     className="mt-2 px-4 py-3 text-gray2"
+                    readOnly={!formEditable}
                   />
                 </FormControl>
                 <FormMessage />
@@ -186,6 +187,7 @@ const CampaignInfo = () => {
                       placeholder="dd/mm/yyyy"
                       {...field}
                       className="mt-2 px-4 py-3 text-gray2"
+                      readOnly={!formEditable}
                     />
                   </FormControl>
                   <FormMessage />
@@ -205,6 +207,7 @@ const CampaignInfo = () => {
                       placeholder="dd/mm/yyyy"
                       {...field}
                       className="mt-2 px-4 py-3 text-gray2"
+                      readOnly={!formEditable}
                     />
                   </FormControl>
                   <FormMessage />
@@ -225,6 +228,7 @@ const CampaignInfo = () => {
                   <Switch
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    disabled={!formEditable}
                   />
                 </FormControl>
               </FormItem>
@@ -255,12 +259,15 @@ const CampaignInfo = () => {
                         field.onChange(updatedTags);
                       }}
                       inputFieldPosition="inline"
+                      readOnly={!formEditable}
                       placeholder="To add keywords, type your keyword and press enter"
                       classNames={{
-                        tag: "bg-[#247B7B] text-white rounded px-2 py-1 mr-2",
-                        tagInput: "text-gray2 py-3",
+                        tag: "bg-[#247B7B] text-white rounded  px-3 py-2 mr-3",
+                        tagInput:
+                          "text-gray2 py-3 flex item-center justify-center",
                         tagInputField:
                           "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                        remove: "ml-2 cursor-pointer text-white",
                       }}
                     />
                   </div>
@@ -280,7 +287,8 @@ const CampaignInfo = () => {
                 </FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  value={field.value}
+                  disabled={!formEditable}
                 >
                   <FormControl>
                     <SelectTrigger>

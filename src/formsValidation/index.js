@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// Custom validation function for date format dd/mm/yyyy
+
 const isDateFormat = (value) => {
   const dateFormat = /^\d{2}\/\d{2}\/\d{4}$/;
   return dateFormat.test(value);
