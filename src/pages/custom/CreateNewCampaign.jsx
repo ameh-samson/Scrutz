@@ -25,9 +25,9 @@ const CreateNewCampaign = () => {
         <SectionTitle>{newCampaignIntro[0].title}</SectionTitle>
       </div>
 
-      <>
+      <div className="  max-w-[684px]">
         <CreateNewForm />
-      </>
+      </div>
     </div>
   );
 };
