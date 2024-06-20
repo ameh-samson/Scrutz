@@ -39,12 +39,7 @@ export function DataTable({ columns, data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const {
-    campaigns,
-    totalCampaigns,
-    totalInactiveCampaigns,
-    totalActiveCampaigns,
-  } = useGlobalContext();
+  const { totalCampaigns } = useGlobalContext();
 
   // Calculate the items to display on the current page
   const offset = (currentPage - 1) * itemsPerPage;

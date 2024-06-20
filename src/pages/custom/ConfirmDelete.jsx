@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { useGlobalContext } from "@/context/Context";
-import { Link } from "react-router-dom";
 
 const ConfirmDelete = () => {
   const { deleteCampaign, setConfirmDeleteModal, campaignNameToDelete } =

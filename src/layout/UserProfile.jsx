@@ -9,15 +9,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
 const UserProfile = () => {
   return (
     <div className="flex justify-center items-center gap-1">

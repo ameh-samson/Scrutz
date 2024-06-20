@@ -75,7 +75,7 @@ export const ContextProvider = ({ children }) => {
       setConfirmDeleteModal(false);
       setSelectedCampaign(false);
       setSuccessModal(true);
-      fetchData(); // Refresh campaign list
+      fetchData();
     } catch (error) {
       console.error("Error deleting campaign:", error);
     }

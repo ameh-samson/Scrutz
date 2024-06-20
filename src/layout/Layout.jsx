@@ -12,7 +12,6 @@ const Layout = () => {
     confirmDeleteModal,
     successModal,
     successfullyEditedModal,
-    setShowCampaignSuccessModal,
   } = useGlobalContext();
 
   return (

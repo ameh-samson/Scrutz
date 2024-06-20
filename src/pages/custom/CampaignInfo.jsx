@@ -4,7 +4,6 @@ import { useGlobalContext } from "@/context/Context";
 import SectionTitle from "./SectionTitle";
 import { IoMdArrowBack } from "react-icons/io";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";

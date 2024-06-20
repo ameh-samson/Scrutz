@@ -38,7 +38,7 @@ const CreateNewForm = () => {
       startDate: "",
       endDate: "",
       digestCampaign: false,
-      linkedKeywords: [], // Array to store tags
+      linkedKeywords: [],
       dailyDigest: "",
     },
   });
